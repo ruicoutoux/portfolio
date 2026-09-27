@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rui Couto — Executive Product Strategy & Lead UX DRI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --card: #ffffff;
+    --border: #e6e2da;
+    --ink: #141412;
+    --muted: #66645d;
+    --accent: #991b1b; /* Deep Burgundy Red */
+    --accent-bg: #fef2f2;
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: auto; padding: 0 32px; }
+
+  header {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-family: var(--font-serif); font-size: 22px; font-weight: 600; font-style: italic; }
+  .nav-links { display: flex; gap: 36px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* Hero Section */
+  .hero-editorial {
+    padding: 100px 0 80px;
+    max-width: 900px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(42px, 5.2vw, 76px);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .hero-sub {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .hero-sub strong { color: var(--ink); font-weight: 600; }
+
+  /* Metrics Banner */
+  .stats-banner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 90px;
+  }
+  .stat-num { font-family: var(--font-serif); font-size: 48px; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 14px; color: var(--muted); font-weight: 500; }
+
+  /* Case Arcs Section */
+  section { padding: 40px 0 90px; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+  .case-arcs { display: flex; flex-direction: column; gap: 48px; }
+  .arc-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: center;
+    transition: all 0.25s ease;
+  }
+  .arc-item:hover {
+    box-shadow: 0 16px 36px rgba(0,0,0,0.06);
+    border-color: #d1ccc0;
+  }
+  .arc-category { font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px; }
+  .arc-item h3 { font-family: var(--font-serif); font-size: 32px; line-height: 1.15; font-weight: 500; margin-bottom: 16px; }
+  .arc-desc { font-size: 16px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .arc-quote {
+    background: var(--bg);
+    border-left: 3px solid var(--accent);
+    padding: 16px;
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .btn-arc {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+  }
+
+  /* About Layout */
+  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 64px; }
+  .about-prose { font-family: var(--font-serif); font-size: 24px; line-height: 1.5; color: #33322d; }
+  .about-prose strong { color: var(--ink); font-weight: 600; }
+
+  footer { padding: 60px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; }
+
+  @media(max-width: 860px) {
+    .stats-banner, .arc-item, .about-grid { grid-template-columns: 1fr; }
+    .arc-item { padding: 28px; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">Rui Couto</div>
+    <div class="nav-links">
+      <a href="#work">Case Arcs</a>
+      <a href="#about">Executive Strategy</a>
+      <a href="mailto:rui.couto.ux@gmail.com">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-editorial">
+      <div class="hero-eyebrow">Lead Product Designer & Strategy DRI · PhD in Computer Science</div>
+      <h1>Driving product direction for enterprise identity, system governance, and agentic AI.</h1>
+      <p class="hero-sub">
+        I combine <strong>academic research rigor with executive DRI leadership</strong> to solve complex systemic friction across enterprise low-code platforms, identity architecture, and supervisory agentic experience.
+      </p>
+    </section>
+
+    <div class="stats-banner">
+      <div>
+        <div class="stat-num">-65%</div>
+        <div class="stat-label">Setup Friction Reduction across 3,200+ Enterprise Devs</div>
+      </div>
+      <div>
+        <div class="stat-num">Multi-$M</div>
+        <div class="stat-label">Enterprise ARR Risk Mitigation & Identity Protection</div>
+      </div>
+      <div>
+        <div class="stat-num">0%</div>
+        <div class="stat-label">Unapproved Mutation Errors in Supervisory Agentic Deployments</div>
+      </div>
+    </div>
+
+    <section id="work">
+      <div class="section-label">Selected Executive Case Arcs</div>
+
+      <div class="case-arcs">
+        
+        <!-- Arc 01 -->
+        <article class="arc-item">
+          <div>
+            <div class="arc-category">Arc 01 / Enterprise Abstraction</div>
+            <h3>Portfolios: Application Lifecycle & Multi-Team Governance</h3>
+            <p class="arc-desc">Architected a non-destructive metadata overlay layer across core platform capabilities—unlocking multi-team governance for Global 2000 clients without breaking legacy build hooks.</p>
+            <div class="arc-quote">
+              "We opted for a non-destructive logical grouping layer over database-level schema refactoring to protect thousands of active enterprise CI/CD pipelines."
+            </div>
+            <a class="btn-arc" href="case_01.html">Read Full Case Arc ↗</a>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:24px; text-align:center;">
+            <span style="font-family:var(--font-serif); font-size:36px; display:block; color:var(--accent);">Delivered</span>
+            <span style="font-size:12px; color:var(--muted);">Product Direction Alignment with CPO & Directors</span>
+          </div>
+        </article>
+
+        <!-- Arc 02 -->
+        <article class="arc-item">
+          <div>
+            <div class="arc-category">Arc 02 / Systems Governance</div>
+            <h3>Governance for Public Elements: AI-Native Defense</h3>
+            <p class="arc-desc">Architected product-wide asset governance across monitoring consoles and IDEs, defending the strategic initiative mid-reorganization using code-level AI prototypes.</p>
+            <div class="arc-quote">
+              "Building an interactive AI code prototype eliminated executive ambiguity and secured 100% funding consensus mid-reorganization."
+            </div>
+            <a class="btn-arc" href="case_02.html">Read Full Case Arc ↗</a>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:24px; text-align:center;">
+            <span style="font-family:var(--font-serif); font-size:36px; display:block; color:var(--accent);">Releasing</span>
+            <span style="font-size:12px; color:var(--muted);">Automated Asset Security Policy Enforcement</span>
+          </div>
+        </article>
+
+        <!-- Arc 03 -->
+        <article class="arc-item">
+          <div>
+            <div class="arc-category">Arc 03 / Identity & Strategy</div>
+            <h3>Strategic Architecture Reversal: Native IdP Protection</h3>
+            <p class="arc-desc">Quantified ARR exposure models and compiled enterprise customer evidence to reverse an executive proposal to decommission native identity, protecting core revenue.</p>
+            <div class="arc-quote">
+              "Advocated for short-term native maintenance overhead over deprecation to protect air-gapped enterprise accounts from contract churn."
+            </div>
+            <a class="btn-arc" href="case_03.html">Read Full Case Arc ↗</a>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:24px; text-align:center;">
+            <span style="font-family:var(--font-serif); font-size:36px; display:block; color:var(--accent);">Complete</span>
+            <span style="font-size:12px; color:var(--muted);">Executive Board Proposal Reversed</span>
+          </div>
+        </article>
+
+        <!-- Arc 04 -->
+        <article class="arc-item">
+          <div>
+            <div class="arc-category">Arc 04 / Agentic AI & AX</div>
+            <h3>Co-Pioneering Agent Experience (AX) & ALM</h3>
+            <p class="arc-desc">Co-founding the AX design practice and acting as DRI for ALM—defining capability contracts, supervisory guardrails, and isolated sandbox environments for autonomous agents.</p>
+            <div class="arc-quote">
+              "Enforced explicit human-in-the-loop contracts over unconstrained agent autonomy to guarantee developer trust and zero silent errors."
+            </div>
+            <a class="btn-arc" href="case_04.html">Read Full Case Arc ↗</a>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:24px; text-align:center;">
+            <span style="font-family:var(--font-serif); font-size:36px; display:block; color:var(--accent);">Ongoing</span>
+            <span style="font-size:12px; color:var(--muted);">Co-Founding AX Practice & Systems Governance</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-label">Executive Leadership & Rigor</div>
+      <div class="about-grid">
+        <div class="about-prose">
+          <p>I hold a <strong>Ph.D. in Computer Science</strong> and specialize in turning complex software architectures into intuitive product experiences. As Lead Product Designer and DRI, I partner directly with CPOs, VPs of Engineering, and CISOs to steer enterprise SaaS strategy.</p>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--border); padding:32px; border-radius:12px;">
+          <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">Core DRI Leadership Focus</h4>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--muted);">
+            <li>✓ Executive Cross-Functional DRI Alignment</li>
+            <li>✓ Enterprise Identity & IAM Architecture</li>
+            <li>✓ Agent Experience (AX) & AI Governance</li>
+            <li>✓ Operational Proxy Metric Frameworks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© 2026 Rui Couto. Executive Product Strategy Journal.</span>
+    <span>Portugal (EU / Remote)</span>
+  </footer>
+</div>
+
+</body>
+</html>

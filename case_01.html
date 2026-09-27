@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Portfolios & Enterprise Abstraction</title>
+  <link rel="stylesheet" href="style.css"> <!-- O teu CSS global -->
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="case-nav">
+    <a href="index.html" class="back-link">← Back to Overview</a>
+    <span class="nav-case-id">CASE 01 / ENTERPRISE ARCHITECTURE</span>
+  </nav>
+
+  <main class="case-detail-container">
+  
+  <!-- HERO HEADER -->
+  <header class="case-detail-header">
+    <div class="case-header-meta">
+      <span class="case-category">01 / Enterprise Architecture & Abstraction</span>
+      <span class="badge-impact">Delivered</span>
+    </div>
+    <h1>Portfolios: Application Lifecycle & Enterprise Abstraction</h1>
+    <p class="case-lead">
+      Architecting a non-destructive abstraction layer across core platform capabilities—enabling multi-team governance, cross-application lifecycle management, and executive portfolio visibility for Global 2000 clients.
+    </p>
+
+    <!-- META GRID -->
+    <div class="case-meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Role & Leadership</span>
+        <span class="meta-value">Lead UX Designer (DRI)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Core Alignment</span>
+        <span class="meta-value">Product Directors, Enterprise Architects & CPO</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Domain</span>
+        <span class="meta-value">Enterprise Platforms, Governance & ALM</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Business Outcome</span>
+        <span class="meta-value">Unblocked Multi-Unit Enterprise Deals</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOCO 1: THE SYSTEM TENSION -->
+  <section class="case-section">
+    <h2>01. The Tipping Point: Flat Models at Enterprise Scale</h2>
+    <p>
+      Historically, the platform treated applications as flat, independent repositories. While highly efficient for SMBs and single-team workflows, this flat model created severe friction when scaled to Global 2000 customers operating hundreds of interconnected micro-applications.
+    </p>
+    <p>
+      IT Directors and Portfolio Managers lacked a macro-level construct to group applications by business unit, enforce unified compliance policies, or audit deployment readiness. Managing dependencies manually created massive operational overhead, stalled platform adoption, and blocked expansion into large multi-unit enterprise accounts.
+    </p>
+  </section>
+
+  <!-- BLOCO 2: CRITICAL ARCHITECTURAL TRADE-OFF -->
+  <section class="case-section">
+    <div class="tradeoff-box">
+      <div class="tradeoff-title">
+        <span>⚡</span>
+        <h3>Critical Architectural Trade-off: Metadata Overlay vs. Schema Refactoring</h3>
+      </div>
+      <p>
+        <strong>We opted for a non-destructive, metadata-driven overlay layer instead of forcing a hard database-level schema refactoring across existing applications.</strong>
+      </p>
+      <p class="tradeoff-detail">
+        <em>The Tension:</em> A hard physical hierarchy would have simplified backend queries but forced thousands of active clients to rewrite automated CI/CD build scripts, deployment hooks, and API integrations.
+        <br><br>
+        <em>The Resolution:</em> As Lead UX DRI, I advocated for a logical grouping model. Applications could belong to dynamic, policy-driven Portfolios without altering underlying code structures or breaking legacy deployment pipelines.
+      </p>
+    </div>
+  </section>
+
+  <!-- BLOCO 3: DRI FACILITATION & EXECUTION -->
+  <section class="case-section">
+    <h2>02. Executive Alignment & Systems Execution Flow</h2>
+    <p>
+      Because "Portfolios" touched capabilities owned by four distinct engineering streams, driving execution required bridging high-level business strategy with low-level platform architecture:
+    </p>
+
+    <!-- ARTEFACTO VISUAL: DAG / FLOW -->
+    <div class="visual-frame">
+      <div class="frame-bar">
+        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span class="frame-title">STRATEGIC ALIGNMENT & SPECIFICATION DAG</span>
+      </div>
+      <div class="dag-container">
+        <div class="dag-step active">
+          <span>01. Application Lifecycle & Dependency Audit</span>
+          <span class="status-pill success">COMPLETED</span>
+        </div>
+        <div class="dag-step active">
+          <span>02. Director-Level Alignment Workshops</span>
+          <span class="status-pill success">CONSENSUS</span>
+        </div>
+        <div class="dag-step active">
+          <span>03. Metadata Abstraction Specification</span>
+          <span class="status-pill success">DEFINED</span>
+        </div>
+        <div class="dag-step active">
+          <span>04. Portfolio Patterns & System UX Handoff</span>
+          <span class="status-pill success">DELIVERED</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCO 4: OUTCOMES & MEASURABLE IMPACT -->
+  <section class="case-section">
+    <h2>03. Impact & Strategic Outcomes</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <h4>Director-Level Alignment</h4>
+        <p>Unified 4 independent product streams around a single governance strategy and taxonomy, resolving roadmap fragmentation.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Enterprise Sales Unblocked</h4>
+        <p>Enabled Global 2000 clients to organize applications by business domain and enforce RBAC without risking build pipeline stability.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Scalable System Primitives</h4>
+        <p>Established reusable UX patterns for portfolio-level actions, bulk operations, and cross-application status aggregation utilized across future platform modules.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER NAVIGATION -->
+  <footer class="case-footer-nav">
+    <div class="nav-previous">
+      <span class="nav-label">Previous</span>
+      <span class="nav-title">—</span>
+    </div>
+    <a class="nav-next" href="case_02.html">
+      <span class="nav-label">Next Case ↗</span>
+      <span class="nav-title">02 / Governance for Public Elements</span>
+    </a>
+  </footer>
+
+</main>
+
+<script>
+  function navigateToCase(caseKey) {
+    const keyMap = {
+      '01': 'case_01.html',
+      '02': 'case_02.html',
+      '03': 'case_03.html',
+      '04': 'case_04.html',
+      'public-elements-governance': 'case_02.html',
+      'idp-architecture-reversal': 'case_03.html',
+      'agentic-ax-alm': 'case_04.html'
+    };
+    window.location.href = keyMap[caseKey] || `case_${caseKey}.html`;
+  }
+</script>
+</body>
+</html>
