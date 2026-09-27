@@ -26,6 +26,8 @@
     --pill-bg: #e2e0d8;
     --max: 1200px;
     --font-mono: 'JetBrains Mono', monospace;
+    --btn-accent: #cce4ed;
+    --btn-accent-hover: #adceda;
   }
 
   * { box-sizing: border-box; }
@@ -488,6 +490,27 @@
     color: #fff;
     border-color: var(--ink);
   }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--btn-accent);
+    border: 1px solid var(--line-dark);
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .btn-download:hover {
+    background: var(--btn-accent-hover);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
   .case-breadcrumb {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -673,9 +696,7 @@
         Lead Product Designer · DRI · OutSystems · Portugal
       </div>
       <h2>I turn complex systems into intuitive product experiences.</h2>
-      <!--button to donwload RuiCouto_cv.pdf. button has proper style of button, with correct paddings and size -->
-      <button class="btn" onclick="window.open('RuiCouto_cv.pdf', '_blank')">Download CV</button>
-
+      <br/>
 
     </div>
     <div class="hero-right">
@@ -690,6 +711,7 @@
       -->
       </div>
     </div>
+    <button class="btn-download" style="width: 10em; " onclick="window.open('RuiCouto_cv.pdf', '_blank')">Download CV</button>
   </header>
 
   <section id="work">
