@@ -435,18 +435,102 @@
   }
   .btn-next:hover { opacity: 0.85; }
 
+  /* TL;DR */
+  .tldr {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+  }
+  .tldr-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #6e6d60;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a2a26;
+    display: flex;
+    align-items: center;
+  }
+  .tldr-val {
+    font-size: 15px;
+    color: #e8e6df;
+    padding: 14px 0 14px 20px;
+    border-bottom: 1px solid #2a2a26;
+    line-height: 1.5;
+  }
+  .tldr-last .tldr-label,
+  .tldr-last .tldr-val { border-bottom: none; }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 40px 0 0;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .stat-source { font-family: var(--font-mono); font-size: 10px; color: var(--muted-light); margin-top: 8px; }
+
+  /* DELIVERED GRID */
+  .delivered-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .delivered-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .delivered-num { font-family: var(--font-mono); font-size: 10px; color: var(--accent); margin-bottom: 6px; }
+  .delivered-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .delivered-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* SOURCES */
+  .sources { border-top: 1px solid var(--line); padding: 40px 0; }
+  .sources-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 16px; }
+  .sources-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+  .sources-list li { font-size: 13px; color: var(--muted); display: flex; gap: 8px; }
+  .sources-list li span { font-family: var(--font-mono); font-size: 11px; color: var(--muted-light); flex-shrink: 0; margin-top: 1px; }
+
+  /* PREV/NEXT NAV */
+  .case-nav { border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .case-nav-cell { background: var(--bg); padding: 32px 28px; display: flex; flex-direction: column; gap: 8px; transition: background 0.15s; }
+  .case-nav-cell:hover { background: var(--card); }
+  .case-nav-cell.next { text-align: right; align-items: flex-end; }
+  .case-nav-dir { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .case-nav-title { font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+
   /* IMAGE PLACEHOLDERS */
   .img-placeholder {
     width: 100%;
-    background: var(--card);
-    border: 1.5px dashed var(--line-dark);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 48px 28px;
     text-align: center;
     color: var(--muted);
   }
@@ -486,6 +570,13 @@
     .scope-grid, .outcome-grid { grid-template-columns: 1fr; }
     .next-case { flex-direction: column; align-items: flex-start; }
   }
+
+  .img-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
 </style>
 </head>
 <body>
@@ -505,10 +596,20 @@
       <span>01 / Enterprise IA & Platform Architecture</span>
       <span class="badge">DELIVERED</span>
     </div>
-    <h1 class="case-title">Portfolios: Restructuring How Enterprises Organise at Scale</h1>
+    <h1 class="case-title">Portfolios</h1>
     <p class="case-problem-statement">
-      OutSystems' flat application model couldn't support enterprises that need to segregate apps by different non-functional requirements. I defined a new structural layer — Portfolios — and redesigned the platform's navigation model around it.
+      Restructuring How Enterprises Organise at Scale
     </p>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <div class="tldr-label">User Problem</div>
+      <div class="tldr-val">Enterprise platform admins couldn't segregate apps with different non-functional requirements. The flat model had no concept of boundaries.</div>
+      <div class="tldr-label">How I Led</div>
+      <div class="tldr-val">Defined a new structural layer (Portfolios), traced its UX impact across every screen and the IDE, redesigned platform navigation — all from the model down, not the screen up.</div>
+      <div class="tldr-label tldr-last">Business Outcome</div>
+      <div class="tldr-val tldr-last">Immediately adopted by the largest ODC customer at launch. Enabled enterprise-grade multi-team governance previously impossible on the platform.</div>
+    </div>
 
     <div class="meta-strip">
       <div class="meta-cell">
@@ -525,9 +626,27 @@
       </div>
       <div class="meta-cell">
         <div class="meta-label">Outcome</div>
-        <div class="meta-val">Adopted by largest ODC customer at launch*</div>
+        <div class="meta-val">Adopted by largest ODC customer at launch; removed known sales blocker</div>
       </div>
     </div>
+
+    <!-- STAT CARDS -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num">~€8M</div>
+        <div class="stat-desc">Combined ARR of customers who adopted immediately after launch</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-desc">Customers adopted immediately after feature launch</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-desc">Product surface affected — across desktop, web and navigation</div>
+        <div class="stat-source">Full platform audit</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- BODY -->
@@ -539,15 +658,13 @@
       <div class="block">
         <h2 class="block-heading"><span class="block-num">01</span> The Problem</h2>
         <p class="prose">
-          Enterprise platform admins manage applications with very different non-functional requirements — security boundaries, compliance requirements, deployment cadences. The flat model forced everything into the same bucket, with no way to segregate, govern, or manage apps independently at scale.
+          Large enterprise customers have different business lines which depend on different non-functional requirements — security boundaries, compliance requirements, deployment cadences. For example a company might have a set of internal apps, plus a set of customer-facing ones. Portfolios allow platform admins to create meaningful boundaries between these groups, so that each can be managed independently at scale.
         </p>
         <div class="highlight">
           <strong>The core pain:</strong> Platform admins had no way to create meaningful boundaries between application groups. One compliance boundary affected everything — or nothing.
         </div>
         <div class="img-placeholder short">
-          <div class="img-placeholder-icon">🖼</div>
-          <div class="img-placeholder-label">Before state</div>
-          <div class="img-placeholder-desc">Screenshot or annotated screen of the original flat Organisation → Apps model, showing the absence of any grouping layer</div>
+          <img class="img-placeholder-img" src="img/case_01_01.png">
         </div>
         <p class="img-caption">The original ODC model — all applications sharing a single flat namespace within the Organisation</p>
       </div>
@@ -556,10 +673,14 @@
       <div class="block">
         <h2 class="block-heading"><span class="block-num">02</span> Constraints & Context</h2>
         <p class="prose">
-          This wasn't a new screen or a feature addition. Introducing Portfolios meant restructuring a core mental model that existing users already relied on. Every surface in the product — navigation, settings, monitoring consoles, the IDE — had to reflect the new hierarchy without breaking the existing experience.
+          From a UX perspective, introducing Portfolios meant restructuring a core mental model that existing users already relied on. Every surface in the product — navigation, settings, monitoring consoles, the IDE — had to reflect the new hierarchy without breaking the existing experience.
         </p>
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" style="width:50%" src="img/case_01_02.png">
+        </div>
+        <p class="img-caption">Different concept live at different abstraction levels</p>
         <p class="prose">
-          The critical constraint: some concepts belong inside a Portfolio (apps, pipelines, stages), while others remain at the Organisation level (users, billing, global settings). Making that asymmetry navigable — without users ever having to consciously think about scope — was the central design challenge.
+          The critical constraint: some concepts belong inside a Portfolio (apps, stages), while others remain at the Organisation level (global settings, billing). Users, while belonging to the Organization, are assigned to portfolios. Making that asymmetry navigable — without users ever having to consciously think about scope — was the central design challenge.
         </p>
       </div>
 
@@ -599,58 +720,34 @@
         </p>
 
         <div class="highlight">
-          <strong>End-to-end product analysis:</strong> Knowing the conceptual model wasn't enough — I needed to understand its UX impact on every single surface. I traced the structural change across the entire product: every screen, every navigation entry, every place where an Application or Stage was referenced had to be audited and reclassified under the new hierarchy. This required holding both the conceptual logic and the full product surface simultaneously — knowing not just <em>what</em> changed, but <em>where</em> it changed, <em>how</em> it changed, and <em>in what order</em> it needed to change to remain coherent for existing users.
+          <strong>End-to-end product analysis:</strong> Knowing the conceptual model wasn't enough; I had to map its UX impact across the entire product. I audited every flow, navigation entry, and instance to identify imapcts of the conceptual change, to reclassify them under the new hierarchy. This meant holding both the conceptual logic and full product surface in mind at once—determining <em>what</em> changed, <em>where</em> it changed, <em>how</em> it changed, and <em>in what order</em> to preserve a coherent experience for existing users.
         </div>
         <div class="img-placeholder medium">
-          <div class="img-placeholder-icon">🖼</div>
-          <div class="img-placeholder-label">Conceptual model artefact</div>
-          <div class="img-placeholder-desc">Whiteboard diagram, Figma frame, or workshop artefact showing the model definition session with PM and Architect — the moment the hierarchy was agreed</div>
+          <img class="img-placeholder-img" src="img/case_01_03.png">
         </div>
-        <p class="img-caption">Conceptual model definition — working session with Director PM and Principal Architect</p>
+        <p class="img-caption">Conceptual model definition — agreed upon version with PM and Architect</p>
       </div>
 
       <!-- 04 NAVIGATION -->
       <div class="block">
         <h2 class="block-heading"><span class="block-num">04</span> The Navigation Problem</h2>
         <p class="prose">
-          The hardest design problem wasn't the new Portfolio screens — it was the navigation. With two distinct scopes now coexisting, the side navigation had to answer a question users would never consciously ask: <em>is this setting for my Portfolio, or for my entire Organisation?</em>
+          One of the biggest design challenges was the navigation. With two distinct scopes now coexisting, the side navigation had to answer a question users would never consciously ask: <em>is this page for my Portfolio, or for my entire Organisation?</em>
         </p>
 
         <div class="highlight">
-          <strong>First approach (discarded):</strong> A strict two-level navigation hierarchy — first level for Portfolio-scoped items, second level for Organisation-scoped items. Clear in theory. User research proved it didn't match how admins actually think about their work.
+          <strong>First approach(es) (discarded):</strong> A single level navigation, then a strict two-level navigation hierarchy — first level for Portfolio-scoped items, second level for Organisation-scoped items. Clear in theory. User research proved it didn't match how admins actually think about their work.
         </div>
 
         <div class="img-placeholder short">
-          <div class="img-placeholder-icon">🖼</div>
-          <div class="img-placeholder-label">Discarded navigation concept</div>
-          <div class="img-placeholder-desc">Early low-fi or mid-fi showing the two-level structural navigation — Portfolio scope above, Organisation scope below — that user research invalidated</div>
+          <img class="img-placeholder-img" src="img/case_01_04.png">
         </div>
-        <p class="img-caption">First navigation approach — structurally correct, but failed in user research on task completion and orientation time</p>
+        <p class="img-caption">First navigation approach (left: low fi; right: high fi) — structurally correct, but failed in user research on task completion and orientation time</p>
 
         <div class="img-placeholder tall">
-          <div class="img-placeholder-icon">🖼</div>
-          <div class="img-placeholder-label">Final navigation design</div>
-          <div class="img-placeholder-desc">Side navigation showing the final solution — task-based structure with Portfolio selector at the top of Portfolio-scoped pages, and cross-portfolio indicator on Organisation-level pages. Annotate scope signals explicitly.</div>
+          <img class="img-placeholder-img" src="img/case_01_05.png">
         </div>
-        <p class="img-caption">Final navigation model — scope surfaced at the page level, not encoded into the navigation structure</p>
-        <div class="scope-grid">
-          <div class="scope-col">
-            <div class="scope-col-label">Portfolio scope</div>
-            <div class="scope-col-title">Lives inside a Portfolio</div>
-            <div class="scope-item"><span class="scope-dot portfolio"></span>Applications</div>
-            <div class="scope-item"><span class="scope-dot portfolio"></span>Pipelines & Stages</div>
-            <div class="scope-item"><span class="scope-dot portfolio"></span>Portfolio Settings</div>
-            <div class="scope-item"><span class="scope-dot portfolio"></span>Deployment Management</div>
-          </div>
-          <div class="scope-col">
-            <div class="scope-col-label">Organisation scope</div>
-            <div class="scope-col-title">Cross-portfolio</div>
-            <div class="scope-item"><span class="scope-dot org"></span>Users & Permissions</div>
-            <div class="scope-item"><span class="scope-dot org"></span>Billing & Subscriptions</div>
-            <div class="scope-item"><span class="scope-dot org"></span>Global Integrations</div>
-            <div class="scope-item"><span class="scope-dot org"></span>Organisation Settings</div>
-          </div>
-        </div>
+        <p class="img-caption">Final navigation model — scope by task, not by architectural correctness</p>
       </div>
 
       <!-- 05 TRADEOFF -->
@@ -659,7 +756,7 @@
         <div class="tradeoff">
           <div class="tradeoff-label">Key decision</div>
           <div class="tradeoff-heading">Familiarity over structural purity</div>
-          <p>A structurally "correct" navigation would mirror the hierarchy exactly — Portfolio items above, Organisation items below, two distinct zones. Architecturally clean. Cognitively wrong.</p>
+          <p>A structurally "correct" navigation would mirror the hierarchy exactly — Portfolio items in the first level, Organisation items in the second level, two distinct zones. Architecturally clean. Cognitively wrong.</p>
           <p>User research backed the call to discard it. Admins failed tasks and took longer to orient. The final model preserves familiar task-based navigation and surfaces scope at the page level — not in the structure. Admins never have to think about it.</p>
         </div>
       </div>
@@ -668,33 +765,46 @@
       <div class="block">
         <h2 class="block-heading"><span class="block-num">06</span> Outcome</h2>
         <p class="prose">
-          The conceptual model, use cases, flows, and low-fidelity designs were completed and handed off to the engineering team. Hi-fidelity execution was deliberately deprioritised in favour of parallel work on ALM and A2A configuration — a deliberate scope trade-off, not a gap.
+          The conceptual model, use cases, flows, and low-fidelity designs were completed and handed off to the engineering team, with an experience that covers the expected outcomes and use cases. Hi-fidelity execution was deliberately delegated to a peer in favour of parallel work on ALM and A2A configuration — a deliberate scope trade-off, not a gap.
         </p>
         <div class="img-placeholder medium">
-          <div class="img-placeholder-icon">🖼</div>
-          <div class="img-placeholder-label">Key delivered screens</div>
-          <div class="img-placeholder-desc">2–3 representative low-fi or hi-fi screens: Portfolio management page, Portfolio selector component in context, and one example of a cross-portfolio page with the org-scope indicator</div>
+          <img class="img-placeholder-img" src="img/case_01_06.png">
         </div>
-        <p class="img-caption">Representative deliverables — Portfolio management, selector pattern, and cross-portfolio page treatment</p>
-        <div class="outcome-grid">
-          <div class="outcome-card">
-            <div class="outcome-card-label">Adoption</div>
-            <div class="outcome-card-val">Immediately adopted by the largest ODC customer at launch*</div>
+        <p class="img-caption">Representative deliverables — Design direction and brainstorming, conceptual model, and portfolio selector pattern</p>
+
+        <h3 style="font-size:16px;font-weight:700;letter-spacing:-.02em;margin:32px 0 0;">What was delivered</h3>
+        <div class="delivered-grid">
+          <div class="delivered-card">
+            <div class="delivered-num">01</div>
+            <div class="delivered-title">Conceptual model & IA</div>
+            <div class="delivered-desc">Platform hierarchy definition, scope rules, and information architecture for the full product surface</div>
           </div>
-          <div class="outcome-card">
-            <div class="outcome-card-label">Scope of Change</div>
-            <div class="outcome-card-val">Full product surface — all screens, IDE, and platform navigation</div>
+          <div class="delivered-card">
+            <div class="delivered-num">02</div>
+            <div class="delivered-title">Navigation redesign</div>
+            <div class="delivered-desc">Side navigation restructured around task-based scope, with contextual scope signals at page level</div>
           </div>
-          <div class="outcome-card">
-            <div class="outcome-card-label">Deliverables</div>
-            <div class="outcome-card-val">Conceptual model · IA · Navigation redesign · Low-fi flows</div>
+          <div class="delivered-card">
+            <div class="delivered-num">03</div>
+            <div class="delivered-title">Portfolio selector pattern</div>
+            <div class="delivered-desc">Reusable component for switching Portfolio context across all portfolio-scoped pages</div>
           </div>
-          <div class="outcome-card">
-            <div class="outcome-card-label">What I'd iterate</div>
-            <div class="outcome-card-val">Validate scope-as-context patterns with a broader user cohort post-launch</div>
+          <div class="delivered-card">
+            <div class="delivered-num">04</div>
+            <div class="delivered-title">Low-fi flows & use cases</div>
+            <div class="delivered-desc">End-to-end user flows covering portfolio creation, management, and cross-portfolio views</div>
+          </div>
+          <div class="delivered-card">
+            <div class="delivered-num">05</div>
+            <div class="delivered-title">Full product screen audit</div>
+            <div class="delivered-desc">Every screen classified by scope and change type — new, updated, or unchanged under the new hierarchy</div>
+          </div>
+          <div class="delivered-card">
+            <div class="delivered-num">06</div>
+            <div class="delivered-title">Portfolio configuration screens</div>
+            <div class="delivered-desc">New screens for portfolio creation, settings, and management — net new surfaces with no prior pattern to follow</div>
           </div>
         </div>
-        <p class="prose" style="font-size: 13px; color: var(--muted); margin-top: 8px;">* Adoption figure to be verified — approximate based on available data at time of writing.</p>
       </div>
 
     </div>
@@ -704,9 +814,10 @@
 
       <div class="sidebar-card">
         <div class="sidebar-card-label">Skills demonstrated</div>
+        <span class="sidebar-tag">Systems thinking</span>
+        <span class="sidebar-tag">Conceptual Design</span>
         <span class="sidebar-tag">Information Architecture</span>
         <span class="sidebar-tag">Platform Navigation</span>
-        <span class="sidebar-tag">Conceptual Modelling</span>
         <span class="sidebar-tag">Executive Alignment</span>
         <span class="sidebar-tag">User Research</span>
         <span class="sidebar-tag">Cross-functional DRI</span>
@@ -729,7 +840,7 @@
         <ul class="sidebar-list">
           <li>Director of Product Management</li>
           <li>Principal Architect</li>
-          <li>Engineering leads (navigation & platform)</li>
+          <li>Engineering managers (navigation & platform)</li>
         </ul>
       </div>
 
@@ -737,15 +848,19 @@
 
   </div>
 
-  <!-- NEXT CASE -->
-  <div class="next-case">
-    <div>
-      <div class="next-label">Next Case · 02</div>
-      <div class="next-title">Governance for Public Elements: AI-Native Defense</div>
-    </div>
-    <a class="btn-next" href="case_02.html">View Case →</a>
+  <!-- SOURCES -->
+   <!--
+  <div class="sources">
+    <div class="sources-label">Sources & Proof</div>
+    <ul class="sources-list">
+      <li><span>01</span>Miro - Brainstorm board <em>(internal)</em></li>
+      <li><span>02</span>Figma file — Portfolio IA & navigation redesign <em>(internal)</em></li>
+      <li><span>03</span>User research sessions — navigation validation <em>(internal)</em></li>
+    </ul>
   </div>
+-->
 
 </div>
+
 </body>
 </html>
