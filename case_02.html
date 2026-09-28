@@ -1,147 +1,1072 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Study: Governance for Public Elements — AI-Native Defense</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic Experience (AX) & Agentic Development Lifecycle (ADLC) — Rui Couto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --ink: #171714;
+    --muted: #6e6d66;
+    --muted-light: #8e8c84;
+    --line: #dcdad3;
+    --line-dark: #c8c6be;
+    --card: #ebe9e2;
+    --card-hover: #e4e2da;
+    --accent: #10b981;
+    --accent-bg: #ecfdf5;
+    --accent-border: #a7f3d0;
+    --max: 1200px;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: rgba(245,244,240,0.94);
+    backdrop-filter: blur(10px);
+    z-index: 90;
+  }
+  .nav-back {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+  .nav-back:hover { color: var(--ink); }
+  .nav-sep {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--line-dark);
+  }
+  .nav-current {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink);
+  }
+
+  /* CASE HERO */
+  .case-hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .badge {
+    background: var(--accent-bg);
+    color: #171714;
+    border: 1px solid var(--accent-border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+  }
+  .case-title {
+    font-size: clamp(34px, 4.5vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -.045em;
+    font-weight: 750;
+    margin: 0 0 24px;
+    max-width: 900px;
+  }
+  .case-problem-statement {
+    font-size: 20px;
+    color: #52514a;
+    max-width: 680px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-dark);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 48px 0 0;
+  }
+  .meta-cell {
+    background: var(--bg);
+    padding: 20px 24px;
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .meta-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* BODY LAYOUT */
+  .case-body {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 72px;
+    padding: 72px 0 100px;
+    align-items: start;
+  }
+  .case-main { display: flex; flex-direction: column; gap: 64px; }
+
+  /* STICKY SIDEBAR */
+  .case-sidebar {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .sidebar-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .sidebar-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .sidebar-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--bg);
+    border: 1px solid var(--line-dark);
+    border-radius: 6px;
+    padding: 4px 9px;
+    color: var(--muted);
+    margin: 0 4px 6px 0;
+  }
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .sidebar-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .sidebar-list li:last-child { border-bottom: none; }
+  .sidebar-list li::before {
+    content: "→";
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* SECTION BLOCKS */
+  .block { display: flex; flex-direction: column; gap: 16px; }
+  .block-heading {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .block-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .prose {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #171714;
+    margin: 0;
+  }
+  .prose + .prose { margin-top: 12px; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--card);
+    border-left: 3px solid var(--ink);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: #171714;
+    line-height: 1.6;
+  }
+  .highlight strong { color: var(--ink); }
+
+  /* HIERARCHY DIAGRAM */
+  .hierarchy {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    padding: 28px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .hierarchy-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .h-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .h-row:last-child { border-bottom: none; }
+  .h-indent { width: 20px; flex-shrink: 0; }
+  .h-node {
+    background: var(--bg);
+    border: 1px solid var(--line-dark);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .h-node.new {
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+    color: #171714;
+  }
+  .h-node.new::after {
+    content: " NEW";
+    font-size: 9px;
+    letter-spacing: .08em;
+    opacity: 0.7;
+  }
+  .h-arrow { color: var(--muted); font-size: 11px; }
+  .h-desc { font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  /* NAVIGATION SCOPE DIAGRAM */
+  .scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .scope-col {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .scope-col-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .scope-col-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .scope-item {
+    font-size: 13px;
+    color: #52514a;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scope-item:last-child { border-bottom: none; }
+  .scope-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .scope-dot.portfolio { background: #10b981; }
+  .scope-dot.org { background: #1a1a17; }
+
+  /* TRADEOFF BOX */
+  .tradeoff {
+    background: #1a1a17;
+    color: #e8e6df;
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .tradeoff-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #6e6d66;
+    margin-bottom: 12px;
+  }
+  .tradeoff-heading {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0 0 12px;
+    color: #e8e6df;
+  }
+  .tradeoff p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #a3a299;
+    margin: 0;
+  }
+  .tradeoff p + p { margin-top: 10px; }
+
+  /* OUTCOME */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .outcome-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .outcome-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .outcome-card-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* NEXT CASE */
+  .next-case {
+    border-top: 1px solid var(--line);
+    padding: 56px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .next-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .next-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+  }
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .btn-next:hover { opacity: 0.85; }
+
+  /* TL;DR */
+  .tldr {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+  }
+  .tldr-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #6e6d60;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a2a26;
+    display: flex;
+    align-items: center;
+  }
+  .tldr-val {
+    font-size: 15px;
+    color: #e8e6df;
+    padding: 14px 0 14px 20px;
+    border-bottom: 1px solid #2a2a26;
+    line-height: 1.5;
+  }
+  .tldr-last .tldr-label,
+  .tldr-last .tldr-val { border-bottom: none; }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 40px 0 0;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .stat-source { font-family: var(--font-mono); font-size: 10px; color: var(--muted-light); margin-top: 8px; }
+
+  /* DELIVERED GRID */
+  .delivered-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .delivered-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .delivered-num { font-family: var(--font-mono); font-size: 10px; color: var(--accent); margin-bottom: 6px; }
+  .delivered-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .delivered-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* SOURCES */
+  .sources { border-top: 1px solid var(--line); padding: 40px 0; }
+  .sources-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 16px; }
+  .sources-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+  .sources-list li { font-size: 13px; color: var(--muted); display: flex; gap: 8px; }
+  .sources-list li span { font-family: var(--font-mono); font-size: 11px; color: var(--muted-light); flex-shrink: 0; margin-top: 1px; }
+
+  /* PREV/NEXT NAV */
+  .case-nav { border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .case-nav-cell { background: var(--bg); padding: 32px 28px; display: flex; flex-direction: column; gap: 8px; transition: background 0.15s; }
+  .case-nav-cell:hover { background: var(--card); }
+  .case-nav-cell.next { text-align: right; align-items: flex-end; }
+  .case-nav-dir { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .case-nav-title { font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+
+  /* IMAGE PLACEHOLDERS */
+  .img-placeholder {
+    width: 100%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .img-placeholder-icon {
+    font-size: 28px;
+    opacity: 0.4;
+  }
+  .img-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+  .img-placeholder-desc {
+    font-size: 13px;
+    color: var(--muted-light);
+    max-width: 360px;
+    line-height: 1.5;
+  }
+  .img-placeholder.tall { min-height: 360px; }
+  .img-placeholder.medium { min-height: 260px; }
+  .img-placeholder.short { min-height: 180px; }
+  .img-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 860px) {
+    .case-body { grid-template-columns: 1fr; gap: 40px; }
+    .case-sidebar { position: static; }
+    .meta-strip { grid-template-columns: 1fr 1fr; }
+    .scope-grid, .outcome-grid { grid-template-columns: 1fr; }
+    .next-case { flex-direction: column; align-items: flex-start; }
+  }
+
+  .img-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* LIGHTBOX OVERLAY */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(17, 17, 14, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+  object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  color: #fff;
+  font-size: 32px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+/* MAKE CLICKABLE IMAGES SHOW POINTER */
+.zoomable {
+  cursor: zoom-in;
+}
+</style>
 </head>
+
+<!-- LIGHTBOX MARKUP -->
+<div id="lightbox" class="lightbox-modal">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged view">
+</div>
+
+
 <body>
 
-  <!-- Navigation -->
-  <nav class="case-nav">
-    <a href="index.html" class="back-link">← Back to Overview</a>
-    <span class="nav-case-id">CASE 02 / SYSTEMS ARCHITECTURE</span>
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-back" href="index.html">← Home</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-current">Agentic Experience & ADLC</span>
   </nav>
 
-  <main class="case-detail-container">
-  
-  <!-- HERO HEADER -->
-  <header class="case-detail-header">
-    <div class="case-header-meta">
-      <span class="case-category">02 / Systems Architecture & AI Prototyping</span>
-      <span class="badge-impact">Releasing</span>
+  <!-- HERO -->
+  <div class="case-hero">
+    <div class="case-eyebrow">
+      <span>02 / Agentic AI & Agentic Experience</span>
+      <span class="badge">ONGOING</span>
     </div>
-    <h1>Governance for Public Elements: AI-Native Defense</h1>
-    <p class="case-lead">
-      Architecting product-wide governance across monitoring consoles and IDE assets, defending the strategic initiative mid-reorganization using code-level AI prototypes built in pair programming with Product Managers.
+
+    <h1 class="case-title">Agentic Experience (AX) & Agentic Development Lifecycle (ADLC)</h1>
+
+    <p class="case-problem-statement">
+      Co-pioneering the UX foundation for OutSystems' next chapter: from a platform for applications to an agentic systems platform — designing how external agents interact with the platform today, and how we build software with agents tomorrow.
     </p>
 
-    <!-- META GRID -->
-    <div class="case-meta-grid">
-      <div class="meta-item">
-        <span class="meta-label">Role & Leadership</span>
-        <span class="meta-value">Lead UX Designer (DRI)</span>
+    <!-- TL;DR -->
+    <div class="tldr">
+      <div class="tldr-label">Company Shift</div>
+      <div class="tldr-val">OutSystems evolved into an agentic systems platform. That required two connected UX fronts: establishing an Agentic Experience (AX) practice for external agent interactions, and evolving the Software Development Lifecycle into an Agentic Development Lifecycle (ADLC).</div>
+
+      <div class="tldr-label">How I Contributed</div>
+      <div class="tldr-val">I led the initial AX research and exploration, defined foundational interaction concepts, built a tool to simulate agentic interactions with real tools such as Claude, and now drive the UX work for ADLC through market research, journeys, gap analysis and experience definition.</div>
+
+      <div class="tldr-label tldr-last">Impact So Far</div>
+      <div class="tldr-val tldr-last">The work is ongoing, but UX analysis is already influencing the product roadmap — including surfacing the need for a visible evolution path from today's SDLC experience to an agentic-native ADLC for existing users.</div>
+    </div>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <div class="meta-label">My Role</div>
+        <div class="meta-val">Lead UX Product Designer · DRI</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Core Stakeholders</span>
-        <span class="meta-value">Staff Engineers, Product Managers & Security</span>
+      <div class="meta-cell">
+        <div class="meta-label">Collaborators</div>
+        <div class="meta-val">UX Director · PM · Architecture & Engineering</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Domain</span>
-        <span class="meta-value">System Governance & AI-Native Prototyping</span>
+      <div class="meta-cell">
+        <div class="meta-label">Scope</div>
+        <div class="meta-val">AX Practice · ADLC Experience</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Business Outcome</span>
-        <span class="meta-value">Secured Mid-Reorg Executive Buy-In</span>
+      <div class="meta-cell">
+        <div class="meta-label">Status</div>
+        <div class="meta-val">Foundations established · Ongoing</div>
       </div>
     </div>
-  </header>
 
-  <!-- SECTION 1 -->
-  <section class="case-section">
-    <h2>01. The Problem: Asset Vulnerability Across Fragmented Consoles</h2>
-    <p>
-      As enterprise clients scaled their low-code and microservice modules, public API endpoints and shared UI elements were exposed without central auditing. Development teams inadvertently published internal assets to public scopes, creating security compliance risks and operational ambiguity.
-    </p>
-    <p>
-      Midway through defining the governance model, a major organizational restructuring threatened to shelve the project. Traditional static Figma mocks failed to convey the technical feasibility and instant security value to incoming executive leadership.
-    </p>
-  </section>
+    <!-- CONCEPTUAL MODEL -->
+    <div class="hierarchy" style="margin-top:40px;">
+      <div class="hierarchy-label">From application platform to agentic systems platform</div>
 
-  <!-- SECTION 2: TRADE-OFF -->
-  <section class="case-section">
-    <div class="tradeoff-box">
-      <div class="tradeoff-title">
-        <span>⚡</span>
-        <h3>Critical Architectural Trade-off: Code-Level AI Prototype vs. Static Design Decks</h3>
+      <div class="h-row">
+        <div class="h-node">External Agents</div>
+        <span class="h-arrow">↔</span>
+        <div class="h-node new">Agentic Experience</div>
+        <span class="h-desc">How agents interact with the platform</span>
       </div>
-      <p>
-        <strong>Rather than refining static slide decks, we paired with PMs to build a working, code-level AI prototype demonstrating live asset defense.</strong>
-      </p>
-      <p class="tradeoff-detail">
-        <em>The Tension:</em> Static design decks were easy to produce but failed to eliminate executive skepticism regarding architectural latency and real-time policy evaluation overhead.
-        <br><br>
-        <em>The Resolution:</em> As Lead UX DRI, I pivoted the team to build an interactive functional prototype using AI coding workflows. This allowed executives to test real-time asset discovery, policy enforcement checks, and instant rule validations in a live sandbox environment.
-      </p>
-    </div>
-  </section>
 
-  <!-- SECTION 3: VISUAL DAG -->
-  <section class="case-section">
-    <h2>02. Governance Architecture & Detection Pipeline</h2>
-    <p>
-      The governance system acts as a continuous policy check layer operating across both IDE authoring environments and administrative monitoring consoles:
-    </p>
-
-    <div class="visual-frame">
-      <div class="frame-bar">
-        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <span class="frame-title">SYSTEM GOVERNANCE // ASSET IMPACT PIPELINE</span>
+      <div class="h-row">
+        <div class="h-node">Human Developers</div>
+        <span class="h-arrow">→</span>
+        <div class="h-node new">ADLC</div>
+        <span class="h-desc">How software is developed with agents</span>
       </div>
-      <div class="dag-container">
-        <div class="dag-step active">
-          <span>01. Public Asset Discovery & Metadata Scanning</span>
-          <span class="status-pill success">MAPPED</span>
-        </div>
-        <div class="dag-step active">
-          <span>02. Cross-Console Policy Rules Enforcement</span>
-          <span class="status-pill success">ENFORCED</span>
-        </div>
-        <div class="dag-step active">
-          <span>03. Interactive AI-Powered Code Sandbox</span>
-          <span class="status-pill success">DEMO READY</span>
-        </div>
-        <div class="dag-step active">
-          <span>04. Executive Buy-In & Production Roadmap Approval</span>
-          <span class="status-pill success">APPROVED</span>
-        </div>
+
+      <div class="h-row">
+        <div class="h-node">Platform</div>
+        <span class="h-arrow">→</span>
+        <div class="h-node">Control · Visibility · Observability</div>
+        <span class="h-desc">The UX layer connecting both fronts</span>
       </div>
     </div>
-  </section>
 
-  <!-- SECTION 4: OUTCOMES -->
-  <section class="case-section">
-    <h2>03. Impact & Measured Results</h2>
-    <div class="outcomes-grid">
-      <div class="outcome-card">
-        <h4>Project Saved Mid-Reorg</h4>
-        <p>Demonstrating live interactive prototype execution secured 100% executive consensus to fund full platform rollout.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="case-body">
+
+    <div class="case-main">
+
+      <!-- 01 CHALLENGE -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">01</span> The Problem</h2>
+
+        <p class="prose">
+          OutSystems was evolving from a platform primarily designed for humans building applications into an agentic systems platform. That was not a single feature change: it was a company-level shift that required us to rethink how agents interact with the platform and how software development itself happens when agents become active participants.
+        </p>
+
+        <div class="highlight">
+          <strong>Two fronts, one transformation:</strong> AX establishes the experience model for external agents interacting with OutSystems. ADLC evolves the existing SDLC so that software can be developed, deployed, monitored and governed in an agentic-native way.
+        </div>
+
+        <p class="prose">
+          The challenge was therefore not simply to add agents to existing workflows. The shift introduces new questions around control, visibility, observability, blast radius, guardrails, trust, transparency and recovery — many of which did not have established UX patterns to build on.
+        </p>
+
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_02_01.png">
+        </div>
+        <p class="img-caption">From SDLC to ADLC, a nuanced transition</p>
       </div>
-      <div class="outcome-card">
-        <h4>Zero Unintentional Asset Exposure</h4>
-        <p>Automated policy guardrails prevent accidental publication of unencrypted public endpoints across enterprise workspaces.</p>
+
+      <!-- 02 AX -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">02</span> Establishing the AX Practice</h2>
+
+        <p class="prose">
+          I started by researching what Agentic Experience means, what it encompasses, and how it should fit within the OutSystems platform. The goal was to establish a useful UX framing before the organisation had an established AX practice or a mature set of patterns to follow.
+        </p>
+
+        <p class="prose">
+          I explored how the same journey could behave under different AX designs, and built an internal tool that could simulate agentic interactions with real tools such as Claude. This made it possible to move beyond static diagrams and examine how different interaction models affected the behaviour and performance of an agent interacting with the platform.
+        </p>
+
+        <div class="highlight">
+          <strong>From definition to experimentation:</strong> The AX work combined research, conceptual modelling and practical tooling — creating a way to explore agentic interaction rather than prematurely standardising a pattern before we understood the space.
+        </div>
+
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_02_02.png">
+        </div>
+        <p class="img-caption">UX, UAX, AX and the transition for an existing journey</p>
+
+        <div class="scope-grid">
+          <div class="scope-col">
+            <div class="scope-col-label">AX focus</div>
+            <div class="scope-col-title">External agents interacting with OutSystems</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Interaction flows</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Agent capabilities & boundaries</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Evaluation of AX designs</div>
+          </div>
+
+          <div class="scope-col">
+            <div class="scope-col-label">Foundation</div>
+            <div class="scope-col-title">Making the new interaction model discussable</div>
+            <div class="scope-item"><span class="scope-dot org"></span>UX / UAX / AX clarification</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Exploration board</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Reusable framing for future work</div>
+          </div>
+        </div>
       </div>
-      <div class="outcome-card">
-        <h4>AI-Augmented UX Practice</h4>
-        <p>Pioneered code-level AI prototyping workflows now adopted across product design teams for rapid technical validation.</p>
+
+      <!-- 03 ADLC -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">03</span> Evolving SDLC into ADLC</h2>
+
+        <p class="prose">
+          In parallel, the development lifecycle needs to evolve. In a conventional CI/CD model, application lifecycle management covers areas such as deployment, monitoring, testing and observability. ADLC applies those concerns to agentic development — where agents are actively involved in producing the software.
+        </p>
+
+        <p class="prose">
+          I am driving the UX side of this work from the PM-defined product vision: researching the market, mapping user journeys, analysing the current product, and translating the product vision into an experience model.
+        </p>
+
+        <div class="hierarchy">
+          <div class="hierarchy-label">Current product → agentic development evolution</div>
+
+          <div class="h-row">
+            <div class="h-node">SDLC</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Existing product capabilities</div>
+            <span class="h-desc">What users have today</span>
+          </div>
+
+          <div class="h-row">
+            <div class="h-node new">ADLC</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Agentic development workflows</div>
+            <span class="h-desc">What needs to evolve</span>
+          </div>
+
+          <div class="h-row">
+            <div class="h-node">UX + MCP + AX</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Connected experience</div>
+            <span class="h-desc">How the gaps are addressed</span>
+          </div>
+        </div>
+
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_02_03.png">
+        </div>
+        <p class="img-caption">Analysis of the SDLC product readiness</p>
+
+        <p class="prose">
+          A key part of the work is mapping where the current product already supports the lifecycle, where agentic development changes the job to be done, and where new UX, MCP and AX capabilities are required.
+        </p>
       </div>
+
+      <!-- 04 UX CHALLENGES -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">04</span> The UX Challenges</h2>
+
+        <p class="prose">
+          The hardest part is the amount of definition that does not yet exist. Making a lifecycle agentic-native is more than turning each SDLC phase into an agent-driven equivalent; it changes the relationship between the developer, the system and the agent.
+        </p>
+
+        <div class="scope-grid">
+          <div class="scope-col">
+            <div class="scope-col-label">Human control</div>
+            <div class="scope-col-title">Knowing what the agent can do</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Control & intervention</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Guardrails</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Transparency</div>
+            <div class="scope-item"><span class="scope-dot portfolio"></span>Error recovery</div>
+          </div>
+
+          <div class="scope-col">
+            <div class="scope-col-label">System control</div>
+            <div class="scope-col-title">Understanding what the agent changed</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Visibility & observability</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Blast radius</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Lifecycle monitoring</div>
+            <div class="scope-item"><span class="scope-dot org"></span>Operational boundaries</div>
+          </div>
+        </div>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">Design tension</div>
+          <div class="tradeoff-heading">Agentic capability without losing human control</div>
+          <p>
+            The experience cannot treat agents as simply another automation mechanism. As agents gain more autonomy, the UX needs to make their actions, scope, consequences and state sufficiently visible for people to supervise and intervene when necessary.
+          </p>
+        </div>
+      </div>
+
+      <!-- 05 RESEARCH & ARTEFACTS -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">05</span> Research, Journeys & Artefacts</h2>
+
+        <p class="prose">
+          The work is still early, so the main outputs are foundational rather than a finished pattern library or shipped feature set. I have focused on making the problem space explicit, connecting product needs to user jobs, and creating artefacts that PM, UX, Architecture and Engineering can use to shape the product together.
+        </p>
+
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_02_04.png">
+        </div>
+        <p class="img-caption">Research artifacts. Redacted due to confidential information</p>
+
+        <div class="delivered-grid">
+          <div class="delivered-card">
+            <div class="delivered-num">01</div>
+            <div class="delivered-title">AX exploration board</div>
+            <div class="delivered-desc">Mapping where we came from, the challenge, needs, UX implications and product impact.</div>
+          </div>
+
+          <div class="delivered-card">
+            <div class="delivered-num">02</div>
+            <div class="delivered-title">UX / UAX / AX clarification</div>
+            <div class="delivered-desc">Clarifying the interaction, flows and deliverables represented by each layer.</div>
+          </div>
+
+          <div class="delivered-card">
+            <div class="delivered-num">03</div>
+            <div class="delivered-title">AX flow definition</div>
+            <div class="delivered-desc">Defining representative agentic interaction flows as a foundation for exploration.</div>
+          </div>
+
+          <div class="delivered-card">
+            <div class="delivered-num">04</div>
+            <div class="delivered-title">AX evaluation tool</div>
+            <div class="delivered-desc">Internal tooling to simulate and explore agentic interaction performance using real tools such as Claude.</div>
+          </div>
+
+          <div class="delivered-card">
+            <div class="delivered-num">05</div>
+            <div class="delivered-title">SDLC → ADLC research</div>
+            <div class="delivered-desc">Mapping the current lifecycle, the intended evolution, existing gaps and implications for the experience.</div>
+          </div>
+
+          <div class="delivered-card">
+            <div class="delivered-num">06</div>
+            <div class="delivered-title">JTBD analysis</div>
+            <div class="delivered-desc">Connecting lifecycle gaps to the jobs users need to accomplish in agentic development.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 ROADMAP IMPACT -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">06</span> Impact So Far</h2>
+
+        <p class="prose">
+          AX and ADLC are ongoing initiatives, so the strongest signal so far is not adoption of a shipped feature but influence on product direction. By surfacing experience risks and gaps early, the UX work is helping PM shape the roadmap around what an agentic-native transition means for existing users.
+        </p>
+
+        <div class="highlight">
+          <strong>One concrete example:</strong> the experience work raised the risk of creating unnecessary friction for current users if the product moves directly from SDLC to ADLC without a visible evolution path. This became an input into how the product transition itself needs to be considered.
+        </div>
+
+        <p class="prose">
+          The objective is to establish foundations that can support the next stage of product definition: clearer agentic interaction models, lifecycle journeys, UX patterns and the supporting capabilities needed to make agentic development observable and governable.
+        </p>
+
+        <h3 style="font-size:16px;font-weight:700;letter-spacing:-.02em;margin:32px 0 0;">Current state</h3>
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="outcome-card-label">AX</div>
+            <div class="outcome-card-val">Foundational research, interaction framing, flow definition and experimentation established.</div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card-label">ADLC</div>
+            <div class="outcome-card-val">Ongoing UX work covering journeys, current-state analysis, gaps, JTBD and future experience definition.</div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card-label">Product influence</div>
+            <div class="outcome-card-val">Experience concerns are feeding product vision and roadmap decisions.</div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card-label">Next</div>
+            <div class="outcome-card-val">Continue turning the emerging model into concrete UX, MCP and AX capabilities.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </section>
 
-  <!-- FOOTER NAVIGATION -->
-  <footer class="case-footer-nav">
-    <a class="nav-previous" href="case_01.html">
-      <span class="nav-label">← Previous Case</span>
-      <span class="nav-title">01 / Portfolios & Enterprise Abstraction</span>
+    <!-- SIDEBAR -->
+    <div class="case-sidebar">
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Skills demonstrated</div>
+        <span class="sidebar-tag">Agentic UX</span>
+        <span class="sidebar-tag">Systems thinking</span>
+        <span class="sidebar-tag">Conceptual Design</span>
+        <span class="sidebar-tag">Product Vision</span>
+        <span class="sidebar-tag">Journey Mapping</span>
+        <span class="sidebar-tag">Market Research</span>
+        <span class="sidebar-tag">AI Interaction</span>
+        <span class="sidebar-tag">Cross-functional DRI</span>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">What this case proves</div>
+        <ul class="sidebar-list">
+          <li>Ability to operate in an emerging product space where established UX patterns do not yet exist</li>
+          <li>Ability to turn ambiguous technology shifts into concrete experience questions and product implications</li>
+          <li>Hands-on experimentation with real agentic tooling rather than relying only on conceptual discussion</li>
+          <li>Ability to connect user journeys, product gaps and technical capabilities such as MCP and AX</li>
+          <li>Product influence through early identification of experience risks and roadmap implications</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Collaboration</div>
+        <ul class="sidebar-list">
+          <li>UX Director — AX practice and UX group leadership</li>
+          <li>Product Management — ADLC product vision and direction</li>
+          <li>Architecture & Engineering — lifecycle capabilities and platform implications</li>
+          <li>UX team — exploration and emerging AX practice</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Key tools & outputs</div>
+        <ul class="sidebar-list">
+          <li>AX exploration board</li>
+          <li>Agentic interaction evaluation tool</li>
+          <li>Claude-based experimentation</li>
+          <li>SDLC → ADLC research / mapping</li>
+          <li>JTBD analysis</li>
+          <li>UX / UAX / AX framework clarification</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SOURCES -->
+  <!--
+  <div class="sources">
+    <div class="sources-label">Sources & Proof</div>
+    <ul class="sources-list">
+      <li><span>01</span>AX exploration board <em>(internal)</em></li>
+      <li><span>02</span>ADLC research and SDLC → ADLC mapping <em>(internal)</em></li>
+      <li><span>03</span>AX evaluation tool / Claude experiments <em>(internal)</em></li>
+    </ul>
+  </div>
+  -->
+
+  <!-- CASE NAV -->
+  <div class="case-nav">
+    <a class="case-nav-cell" href="case_01.html">
+      <span class="case-nav-dir">← Previous case</span>
+      <span class="case-nav-title">Portfolios - Restructuring How Enterprises Organise at Scale</span>
     </a>
-    <a class="nav-next" href="case_03.html">
-      <span class="nav-label">Next Case ↗</span>
-      <span class="nav-title">03 / Strategic Architecture Reversal</span>
-    </a>
-  </footer>
+    <div class="case-nav-cell next">
+      <span class="case-nav-dir">Case 03 →</span>
+      <span class="case-nav-title">Coming next</span>
+    </div>
+  </div>
 
-</main>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.img-placeholder-img').forEach(img => {
+    img.classList.add('zoomable');
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
 
 </body>
+
 </html>

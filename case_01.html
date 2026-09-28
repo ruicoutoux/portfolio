@@ -577,8 +577,74 @@
     border-radius: 8px;
     object-fit: cover;
   }
+
+  /* LIGHTBOX OVERLAY */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(17, 17, 14, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+  object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  color: #fff;
+  font-size: 32px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+/* MAKE CLICKABLE IMAGES SHOW POINTER */
+.zoomable {
+  cursor: zoom-in;
+}
 </style>
 </head>
+
+<!-- LIGHTBOX MARKUP -->
+<div id="lightbox" class="lightbox-modal">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged view">
+</div>
+
 <body>
 
 <div class="wrap">
@@ -862,5 +928,37 @@
 
 </div>
 
+<div class="case-nav">
+    <a class="case-nav-cell" href="index.html">
+      <span class="case-nav-dir">← Back to portfolio</span>
+      <span class="case-nav-title"></span>
+    </a>
+    <a class="case-nav-cell next" href="case_02.html">
+      <span class="case-nav-dir">Case 02 →</span>
+      <span class="case-nav-title">Agentic Experience (AX) & Agentic Development Lifecycle (ADLC)</span>
+    </a>
+  </div>
+
+  <script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  // Open modal on image click
+  document.querySelectorAll('.img-placeholder-img').forEach(img => {
+    img.classList.add('zoomable');
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  // Close modal on click anywhere (background or close button) or pressing ESC
+  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
+
 </body>
+
 </html>

@@ -761,7 +761,7 @@
 
 
       <!-- CASE 02: ALM & AX -->
-      <article class="case" onclick="navigateToCase('04')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('04')" role="button" tabindex="0" style="cursor: pointer;">
+      <article class="case" onclick="navigateToCase('02')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('02')" role="button" tabindex="0" style="cursor: pointer;">
         <div class="case-info">
           <div>
             <div class="case-header-meta">
@@ -1111,11 +1111,11 @@
       '02': 'case_02.html',
       '03': 'case_03.html',
       '04': 'case_04.html',
-      'public-elements-governance': 'case_02.html',
+      'public-elements-governance': 'case_04.html',
       'idp-architecture-reversal': 'case_03.html',
-      'agentic-ax-alm': 'case_04.html',
+      'agentic-ax-alm': 'case_02.html',
       'identity-shell': 'case_03.html',
-      'agentic-alm': 'case_04.html'
+      'agentic-alm': 'case_02.html'
     };
     window.location.href = keyMap[caseKey] || `case_${caseKey}.html`;
   }
@@ -1141,10 +1141,10 @@
     { label: 'Jump to How I Work', action: () => scrollToId('approach'), badge: 'Section' },
     { label: 'Jump to Philosophy', action: () => scrollToId('philosophy'), badge: 'Section' },
     { label: 'Jump to About', action: () => scrollToId('about'), badge: 'Section' },
-    { label: 'Open Case 01: Portfolios & Enterprise Abstraction', action: () => navigateToCase('01'), badge: 'Full Case' },
-    { label: 'Open Case 02: Governance for Public Elements', action: () => navigateToCase('02'), badge: 'Full Case' },
-    { label: 'Open Case 03: Strategic Architecture Reversal', action: () => navigateToCase('03'), badge: 'Full Case' },
-    { label: 'Open Case 04: Agentic AI & AX Practices', action: () => navigateToCase('04'), badge: 'Full Case' },
+    { label: 'Open Case 01: Portfolios: Restructuring How Enterprises Organise at Scale', action: () => navigateToCase('01'), badge: 'Full Case' },
+    { label: 'Open Case 02: Agent Experience (AX) & Agentic Lifecycle Management (ALM)', action: () => navigateToCase('02'), badge: 'Full Case' },
+    { label: 'Open Case 03: Strategic Architecture Reversal: Native Authentication Experience Protection', action: () => navigateToCase('03'), badge: 'Full Case' },
+    { label: 'Open Case 04: Governance for Public Elements', action: () => navigateToCase('04'), badge: 'Full Case' },
     { label: 'Copy Email Address', action: () => copyEmail(), badge: 'Action' }
   ];
 
@@ -1155,7 +1155,7 @@
 
   function copyEmail() {
     closeCmd();
-    const email = 'rui.couto.ux@gmail.com';
+    const email = 'rmscouto@gmail.com';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(email);
     }
