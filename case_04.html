@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strategic Architecture Reversal — Rui Couto</title>
+<title>Portfolios: Application Lifecycle & Enterprise Abstraction — Rui Couto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -653,63 +653,64 @@
   <nav>
     <a class="nav-back" href="index.html">← Home</a>
     <span class="nav-sep">/</span>
-    <span class="nav-current">Portfolios & Enterprise Abstraction</span>
+    <span class="nav-current">Governance for Public Elements</span>
   </nav>
 
   <!-- HERO -->
   <div class="case-hero">
     <div class="case-eyebrow">
-      <span>03 / BUSINESS STRATEGY & IDENTITY</span>
-      <span class="badge">DELIVERED</span>
+      <span>04 / SYSTEMS ARCHITECTURE & AI PROTOTYPING</span>
+      <span class="badge">RELEASING</span>
     </div>
-    <h1 class="case-title">Strategic Architecture Reversal</h1>
+    <h1 class="case-title">Governance for Public Elements</h1>
     <p class="case-problem-statement">
-      Native Authentication Experience Protection
+      <!-- Restructuring How Enterprises Organise at Scale -->
     </p>
 
     <!-- TL;DR -->
     <div class="tldr">
       <div class="tldr-label">User Problem</div>
-      <div class="tldr-val">Architecture proposal oversight the product impacts on a decision to optimize cost and efficiency in the Identity area</div>
+      <div class="tldr-val">OutSystems platfom governance model for assets was too open for large enterprise customers, which of often need to have well defined scopes for consumption of public elements of assets</div>
       <div class="tldr-label">How I Led</div>
-      <div class="tldr-val">Gathered evidence and information on the real impact of the proposal, both concerning the product positioning, and the affected customers and potential ARR at risk.</div>
+      <div class="tldr-val">Defined the new governance layer for public elements, evolving the exising model (either public/private), to a model of visiblity plus governance. An AI native approach supported the delivery of a complex initiative with a single designer</div>
       <div class="tldr-label tldr-last">Business Outcome</div>
-      <div class="tldr-val tldr-last">The decision was reverted, preventing potential negative impacts on customers and ARR, in favor of keeping the ideal experience for the custoemrs.</div>
+      <div class="tldr-val tldr-last">This capability removes a major sales blocker for large enterprise customers, already identified.</div>
     </div>
 
     <div class="meta-strip">
       <div class="meta-cell">
         <div class="meta-label">My Role</div>
-        <div class="meta-val">Lead UX · DRI · Identity SME</div>
+        <div class="meta-val">Lead UX · DRI · IC</div>
       </div>
       <div class="meta-cell">
-        <div class="meta-label">Stakeholders</div>
-        <div class="meta-val">Director Architect · Principal Architect</div>
+        <div class="meta-label">Collaborators</div>
+        <div class="meta-val">Director PM · Principal Architect</div>
       </div>
       <div class="meta-cell">
         <div class="meta-label">Timeline</div>
-        <div class="meta-val">~1 week</div>
+        <div class="meta-val">~3 months</div>
       </div>
       <div class="meta-cell">
         <div class="meta-label">Outcome</div>
-        <div class="meta-val">Reverted decision with direct impact in customers experience and ARR.</div>
+        <div class="meta-val">Adopted by largest ODC customer at launch; removed known sales blocker</div>
       </div>
     </div>
 
     <!-- STAT CARDS -->
     <div class="stat-row">
       <div class="stat-card">
-        <div class="stat-num">€10M+</div>
+        <div class="stat-num">€?M+</div>
         <div class="stat-desc">Combined ARR of impacted customers</div>
+        <<div class="stat-source">Value to be added based on the opportunity</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">SMT</div>
-        <div class="stat-desc">Architecture influence</div>
+        <div class="stat-num">3</div>
+        <div class="stat-desc">Largest customers already confirmed adoption upon release</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">Success</div>
-        <div class="stat-desc">Reverting the impactful decision</div>
-        <!--<div class="stat-source">Full platform audit</div>-->
+        <div class="stat-num">2</div>
+        <div class="stat-desc">Product surfaces affected - ODC portal and IDE</div>
+        <div class="stat-source">Full platform audit</div>
       </div>
     </div>
 
@@ -724,102 +725,148 @@
       <div class="block">
         <h2 class="block-heading"><span class="block-num">01</span> The Problem</h2>
         <p class="prose">
-          OutSystems has a comprehensive and complex identity and authentication system, required to provide customers with flexible and customisation options, without compromising security. The Identity system which is a core part of the platform. A proposal was made to optimize the cost and efficiency of the Identity area, but it overlooked the product impacts on the user and customer experience.
+          Large enterprise customers have software factories with dozens of apps, which expose thousands of public elements (i.e. elemens such as screens and functions that can be reused across apps). The current OutSystems governance model for public elements is too open for these customers, which often need to have well-defined scopes for consumption of public elements of assets. The current model is binary: either an element is public (and can be consumed by any app in the platform), or private (and can only be consumed by the app that owns it). This model does not allow for the level of control and governance that large enterprise customers require, with the ability of defining scopes for consumption and visiblity of the public elements of assets.
         </p>
         <div class="highlight">
-          <strong>The core pain:</strong> Moving the Identity and Authentication system would result in a cheaper architecture to maintain, but it would also break the native experience for customers, and potentially impact the ARR of the company. The decision was made without a full understanding of the product and customer impacts.
+          <strong>The core pain:</strong> The current model needed to evolve in order to support the level of control and governance that large enterprise customers require - this implies not only desiginig the new model, but also ensuring a smooth transition for current customers.
         </div>
         <div class="img-placeholder short">
-          <img class="img-placeholder-img" src="img/case_03_01.png">
+          <img class="img-placeholder-img" src="img/case_04_01.png">
         </div>
-        <p class="img-caption"><a href="https://www.outsystems.com/initiatives/digital-experiences#exceptional-ux" target="_blank">Exceptional UX</a> is one of the OutSystems advantages</p>
+        <p class="img-caption">The original ODC model — elements are either public or private to be consumed</p>
       </div>
 
       <!-- 02 CONSTRAINTS -->
       <div class="block">
         <h2 class="block-heading"><span class="block-num">02</span> Constraints & Context</h2>
         <p class="prose">
-          While acting as the SME and DRI for Identity, when I became aware of the impacts, I took the initative to immediately gather context and evidence to present to the Director Architect and Principal Architect. I gathered information on the real impact of the proposal, both concerning the product positioning, and the affected customers and potential ARR at risk, based on internal data.
-
-          While operating under tight time constraints, as the decision was already in progress, I had to quickly gather evidence and convey it to the decision makers. This was a critical moment, as the decision could have had a significant negative impact on customers and the company's revenue, and at the same time negatively impact the user experience.
-
-          
+          This is another change to the product that requires restructing the customer's mental model of the platform. The direct impliction is that sharing is now a two stage process - visibility is defined at the element level, while rules are the governance layer, defined over them. Existing customers not only need to understand the new model, but also have a migration process that couldn't introduce friction or breaking changes.
         </p>
         <div class="img-placeholder short">
-          <img class="img-placeholder-img" style="width:50%" src="img/case_03_02.png">
+          <img class="img-placeholder-img" style="width:50%" src="img/case_04_02.png">
         </div>
-        <p class="img-caption">Different concept live at different abstraction levels</p>
+        <p class="img-caption">Conceptual model of the new governance approach</p>
         <p class="prose">
-          The critical constraint: This was an architectural decision, meaning that UX was not the only factor in the decision-making process. The decision makers had to consider other factors, such as cost, efficiency, and technical feasibility. Therefore, I had to present my findings in a way that would resonate with the decision makers and highlight the importance of maintaining the native experience for customers.
+          The critical constraint: The new model splits what previously was a single action (sharing an element) into two distinct actions (defining visibility and defining rules). This means that the new model needs to be intuitive and easy to understand, while also being flexible enough to support the needs of large enterprise customers. The new model also needs to be backward compatible with existing customers, ensuring a smooth transition without introducing friction or breaking changes.
         </p>
       </div>
 
       <!-- 03 MODEL -->
       <div class="block">
-        <h2 class="block-heading"><span class="block-num">03</span> The approach</h2>
+        <h2 class="block-heading"><span class="block-num">03</span> Defining the Structural Model</h2>
         <p class="prose">
-          Operating under tight time constraints, the approach was to gather evidence for a short and impactful message. The goal was to present both the impact in ARR, and the in the experience, so that target audience could see both sides of the impact.
+          Together with the Director PM and Principal Architect and Principal Engineering manager, I defined the new concepts and governance hierarchy for the shared elements.
         </p>
 
         <div class="hierarchy">
-          <div class="hierarchy-label">Evidence selection approach</div>
+          <div class="hierarchy-label">Platform hierarchy — before & after</div>
 
           <div class="h-row">
-            <div class="h-node">Executive summary</div>
+            <div class="h-node">Element</div>
+            <span class="h-arrow">:</span>
+            <div class="h-node">Public</div>
             <span class="h-arrow">→</span>
-            <div class="h-node">ARR impact & customers</div>
-            <span class="h-arrow">→</span>
-            <div class="h-node">Experience impact & other platforms</div>
+            <div class="h-node">Shared</div>
+            <span class="h-desc">Before: Single action</span>
           </div>
 
+          <div class="h-row" style="margin-top: 8px;">
+            <div class="h-node">Element</div>
+            <span class="h-arrow">:</span>
+            <div class="h-node new">Shareable</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Sharing rule</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Shared</div>
+            <span class="h-desc">After: Two actions</span>
+          </div>
         </div>
 
         <p class="prose">
-          As we were operating in different timezones, the evidence was conveyed asynchronously, with a clear and concise message, at the same time to all decision makers. The goal was to make it easy for the decision makers to understand the impact and make an informed decision, without the hurdle of further meetings.
+          Baed on the structural model I defined the new user and product needs, namely the configuration of the scopes (organization, portfolios, teams) base rules, plus the cross product impacts on both the visibility and configuration of the assets shared elements.
         </p>
 
-        <!--<div class="highlight">
-          <strong>End-to-end product analysis:</strong> Knowing the conceptual model wasn't enough; I had to map its UX impact across the entire product. I audited every flow, navigation entry, and instance to identify imapcts of the conceptual change, to reclassify them under the new hierarchy. This meant holding both the conceptual logic and full product surface in mind at once—determining <em>what</em> changed, <em>where</em> it changed, <em>how</em> it changed, and <em>in what order</em> to preserve a coherent experience for existing users.
-        </div>-->
-        <div class="img-placeholder medium">
-          <img class="img-placeholder-img" src="img/case_03_03.png">
+        <div class="highlight">
+          <strong>End-to-end product analysis:</strong> Having clarified the conceptual model, it as also required to map its UX impact across the entire product and flows. I audited every flow, navigation entry, and instance to identify the impacts of the change.
         </div>
-        <p class="img-caption">Slide deck delivered to architecture SMT</p>
+        <div class="img-placeholder medium">
+          <img class="img-placeholder-img" src="img/case_04_03.png">
+        </div>
+        <p class="img-caption">Cross product impacts, on both Portal and IDE</p>
+      </div>
+
+      <!-- 04 NAVIGATION -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">04</span> The model evolution problem</h2>
+        <p class="prose">
+          One of the biggest design challenges was to accomodate the new capability, together with the existing customers. Breaking changes were non-negotiable, but awareness and control in the new capability were key, so that users would never consciously ask: <em>Can I govern public elements?</em>
+        </p>
+
+        <div class="highlight">
+          <strong>First approach (discarded):</strong> All assets migrate automatically to the new model. The risk was too high, as we would be breaking an identity tenent - no changes on the user behalf.
+        </div>
+
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_04_04.png">
+        </div>
+        <p class="img-caption">Impact of the new model on existing workflows</p>
+
+
+      <p class="prose">
+          The solution for this challenge was the introduction of flexible base rules at each scope - organization, portfolio, and team - that allows the customer to define the default behavior of the new model, while also allowing for exceptions to be defined at each scope level. At the same time, still supports the current model (all elements open to all assets). This approach supports a smooth transition for existing customers, while also providing the flexibility needed for large enterprise customers, allowing for a gradual adoption of the new model.
+      </p>
+
+        <div class="img-placeholder tall">
+          <img class="img-placeholder-img" src="img/case_04_05.png">
+        </div>
+        <p class="img-caption">Configuration of base rules and visibility over impact</p>
       </div>
 
       
+
+      <!-- 05 TRADEOFF -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">05</span> The Hard Trade-off</h2>
+        <div class="tradeoff">
+          <div class="tradeoff-label">Key decision</div>
+          <div class="tradeoff-heading">Flexibility and control over convenience</div>
+          <p>While a one-shot migration would allow for a easier transition, we would risk impacting the business of existing customers. That wasn't an acceptable risk to take.</p>
+          <p>While we had the extra effort of not only designing the new model, identifying and designing the evolution of the experience, and also design a migration path, we also eliminated the risk of disrupting existing workflows, while supporting progressive adoption of the new model.</p>
+        </div>
+      </div>
+
       <!-- 06 OUTCOME -->
       <div class="block">
         <h2 class="block-heading"><span class="block-num">06</span> Outcome</h2>
         <p class="prose">
-          Praised by the principal architect for bringing his awareness to the problem, and making him aware of the potential negative impacts on customers and ARR, the decision was reverted, preventing potential negative impacts on customers and ARR, in favor of keeping the ideal experience for the customers.
+          The new model was designed, validated and delivered in the form of a conceptual model, use cases, flows, low-fidelity designs and high fidelity designs to the engineering team. The full spectrum of the experience was covered, allowing for a timely deliver of the new product capability. This capability is currenly under development (to be released Q4 2026).
         </p>
-        <!--<div class="img-placeholder medium">
-          <img class="img-placeholder-img" src="img/case_01_06.png">
+        <div class="img-placeholder medium">
+          <img class="img-placeholder-img" src="img/case_04_06.png">
         </div>
-        <p class="img-caption">Representative deliverables — Design direction and brainstorming, conceptual model, and portfolio selector pattern</p>-->
+        <p class="img-caption">Representative deliverables — Design direction and brainstorming, conceptual model, design</p>
 
         <h3 style="font-size:16px;font-weight:700;letter-spacing:-.02em;margin:32px 0 0;">What was delivered</h3>
         <div class="delivered-grid">
           <div class="delivered-card">
             <div class="delivered-num">01</div>
-            <div class="delivered-title">Evidence on ARR impact</div>
-            <div class="delivered-desc">Based on internal data, I've shown the potential negative impacts on ARR</div>
+            <div class="delivered-title">Conceptual model</div>
+            <div class="delivered-desc">New governance approach conceptual model, and impact cross different product areas</div>
           </div>
           <div class="delivered-card">
             <div class="delivered-num">02</div>
-            <div class="delivered-title">Market analysis</div>
-            <div class="delivered-desc">A high level overview of the market conditions and competitive landscape</div>
+            <div class="delivered-title">User flows and prototypes</div>
+            <div class="delivered-desc">AI native experience design allowed to deliver in the same artifact user flows and prototypes with zero extra effort</div>
           </div>
           <div class="delivered-card">
             <div class="delivered-num">03</div>
-            <div class="delivered-title">Data on usage of customization features</div>
-            <div class="delivered-desc">Numbers on the usage of customization features in the login screen</div>
+            <div class="delivered-title">Product experience audit</div>
+            <div class="delivered-desc">Every experience affected by the change analysed, redesiged and validated with respective owners</div>
           </div>
           <div class="delivered-card">
             <div class="delivered-num">04</div>
-            <div class="delivered-title">UX Recommendations</div>
-            <div class="delivered-desc">Explanation on the negative impacts on the user experience</div>
+            <div class="delivered-title">New sharing rules configuration area</div>
+            <div class="delivered-desc">New screens for configuring the base rules for each scope</div>
           </div>
         </div>
       </div>
@@ -833,8 +880,7 @@
         <div class="sidebar-card-label">Skills demonstrated</div>
         <span class="sidebar-tag">Systems thinking</span>
         <span class="sidebar-tag">Conceptual Design</span>
-        <span class="sidebar-tag">Information Architecture</span>
-        <span class="sidebar-tag">Platform Navigation</span>
+        <span class="sidebar-tag">Native AI Experience Design</span>
         <span class="sidebar-tag">Executive Alignment</span>
         <span class="sidebar-tag">User Research</span>
         <span class="sidebar-tag">Cross-functional DRI</span>
@@ -879,17 +925,15 @@
 
 </div>
 
-<!-- CASE NAV -->
-  <div class="case-nav">
-    <a class="case-nav-cell" href="case_02.html">
-      <span class="case-nav-dir">← Case 02</span>
-      <span class="case-nav-title">Agent Experience (AX) & Agentic Lifecycle Management (ALM)</span>
+<div class="case-nav">
+    <a class="case-nav-cell" href="index.html">
+      <span class="case-nav-dir">← Back to portfolio</span>
+      <span class="case-nav-title"></span>
     </a>
-
-    <a class="case-nav-cell next" href="case_04.html">
-      <span class="case-nav-dir">Case 04 →</span>
-      <span class="case-nav-title">Governance for Public Elements</span>
-    </a>    
+    <!--<a class="case-nav-cell next" href="case_02.html">
+      <span class="case-nav-dir">Case 02 →</span>
+      <span class="case-nav-title">Agentic Experience (AX) & Agentic Development Lifecycle (ADLC)</span>
+    </a>-->
   </div>
 
   <script>
