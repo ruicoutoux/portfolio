@@ -1,147 +1,917 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Study: Strategic Architecture Reversal — Native IdP Protection</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Architecture Reversal — Rui Couto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --ink: #171714;
+    --muted: #6e6d66;
+    --muted-light: #8e8c84;
+    --line: #dcdad3;
+    --line-dark: #c8c6be;
+    --card: #ebe9e2;
+    --card-hover: #e4e2da;
+    --accent: #10b981;
+    --accent-bg: #ecfdf5;
+    --accent-border: #a7f3d0;
+    --max: 1200px;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: rgba(245,244,240,0.94);
+    backdrop-filter: blur(10px);
+    z-index: 90;
+  }
+  .nav-back {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+  .nav-back:hover { color: var(--ink); }
+  .nav-sep {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--line-dark);
+  }
+  .nav-current {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink);
+  }
+
+  /* CASE HERO */
+  .case-hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .badge {
+    background: var(--accent-bg);
+    color: #171714;
+    border: 1px solid var(--accent-border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+  }
+  .case-title {
+    font-size: clamp(34px, 4.5vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -.045em;
+    font-weight: 750;
+    margin: 0 0 24px;
+    max-width: 900px;
+  }
+  .case-problem-statement {
+    font-size: 20px;
+    color: #52514a;
+    max-width: 680px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-dark);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 48px 0 0;
+  }
+  .meta-cell {
+    background: var(--bg);
+    padding: 20px 24px;
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .meta-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* BODY LAYOUT */
+  .case-body {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 72px;
+    padding: 72px 0 100px;
+    align-items: start;
+  }
+  .case-main { display: flex; flex-direction: column; gap: 64px; }
+
+  /* STICKY SIDEBAR */
+  .case-sidebar {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .sidebar-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .sidebar-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .sidebar-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--bg);
+    border: 1px solid var(--line-dark);
+    border-radius: 6px;
+    padding: 4px 9px;
+    color: var(--muted);
+    margin: 0 4px 6px 0;
+  }
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .sidebar-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .sidebar-list li:last-child { border-bottom: none; }
+  .sidebar-list li::before {
+    content: "→";
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* SECTION BLOCKS */
+  .block { display: flex; flex-direction: column; gap: 16px; }
+  .block-heading {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .block-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .prose {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #171714;
+    margin: 0;
+  }
+  .prose + .prose { margin-top: 12px; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--card);
+    border-left: 3px solid var(--ink);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: #171714;
+    line-height: 1.6;
+  }
+  .highlight strong { color: var(--ink); }
+
+  /* HIERARCHY DIAGRAM */
+  .hierarchy {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 12px;
+    padding: 28px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .hierarchy-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .h-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .h-row:last-child { border-bottom: none; }
+  .h-indent { width: 20px; flex-shrink: 0; }
+  .h-node {
+    background: var(--bg);
+    border: 1px solid var(--line-dark);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .h-node.new {
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+    color: #171714;
+  }
+  .h-node.new::after {
+    content: " NEW";
+    font-size: 9px;
+    letter-spacing: .08em;
+    opacity: 0.7;
+  }
+  .h-arrow { color: var(--muted); font-size: 11px; }
+  .h-desc { font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  /* NAVIGATION SCOPE DIAGRAM */
+  .scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .scope-col {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .scope-col-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .scope-col-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .scope-item {
+    font-size: 13px;
+    color: #52514a;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scope-item:last-child { border-bottom: none; }
+  .scope-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .scope-dot.portfolio { background: #10b981; }
+  .scope-dot.org { background: #1a1a17; }
+
+  /* TRADEOFF BOX */
+  .tradeoff {
+    background: #1a1a17;
+    color: #e8e6df;
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .tradeoff-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #6e6d66;
+    margin-bottom: 12px;
+  }
+  .tradeoff-heading {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0 0 12px;
+    color: #e8e6df;
+  }
+  .tradeoff p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #a3a299;
+    margin: 0;
+  }
+  .tradeoff p + p { margin-top: 10px; }
+
+  /* OUTCOME */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .outcome-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .outcome-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .outcome-card-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* NEXT CASE */
+  .next-case {
+    border-top: 1px solid var(--line);
+    padding: 56px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .next-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .next-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+  }
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .btn-next:hover { opacity: 0.85; }
+
+  /* TL;DR */
+  .tldr {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+  }
+  .tldr-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #6e6d60;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a2a26;
+    display: flex;
+    align-items: center;
+  }
+  .tldr-val {
+    font-size: 15px;
+    color: #e8e6df;
+    padding: 14px 0 14px 20px;
+    border-bottom: 1px solid #2a2a26;
+    line-height: 1.5;
+  }
+  .tldr-last .tldr-label,
+  .tldr-last .tldr-val { border-bottom: none; }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 40px 0 0;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .stat-source { font-family: var(--font-mono); font-size: 10px; color: var(--muted-light); margin-top: 8px; }
+
+  /* DELIVERED GRID */
+  .delivered-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .delivered-card {
+    background: var(--card);
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .delivered-num { font-family: var(--font-mono); font-size: 10px; color: var(--accent); margin-bottom: 6px; }
+  .delivered-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .delivered-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* SOURCES */
+  .sources { border-top: 1px solid var(--line); padding: 40px 0; }
+  .sources-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 16px; }
+  .sources-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+  .sources-list li { font-size: 13px; color: var(--muted); display: flex; gap: 8px; }
+  .sources-list li span { font-family: var(--font-mono); font-size: 11px; color: var(--muted-light); flex-shrink: 0; margin-top: 1px; }
+
+  /* PREV/NEXT NAV */
+  .case-nav { border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .case-nav-cell { background: var(--bg); padding: 32px 28px; display: flex; flex-direction: column; gap: 8px; transition: background 0.15s; }
+  .case-nav-cell:hover { background: var(--card); }
+  .case-nav-cell.next { text-align: right; align-items: flex-end; }
+  .case-nav-dir { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .case-nav-title { font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+
+  /* IMAGE PLACEHOLDERS */
+  .img-placeholder {
+    width: 100%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .img-placeholder-icon {
+    font-size: 28px;
+    opacity: 0.4;
+  }
+  .img-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+  .img-placeholder-desc {
+    font-size: 13px;
+    color: var(--muted-light);
+    max-width: 360px;
+    line-height: 1.5;
+  }
+  .img-placeholder.tall { min-height: 360px; }
+  .img-placeholder.medium { min-height: 260px; }
+  .img-placeholder.short { min-height: 180px; }
+  .img-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 860px) {
+    .case-body { grid-template-columns: 1fr; gap: 40px; }
+    .case-sidebar { position: static; }
+    .meta-strip { grid-template-columns: 1fr 1fr; }
+    .scope-grid, .outcome-grid { grid-template-columns: 1fr; }
+    .next-case { flex-direction: column; align-items: flex-start; }
+  }
+
+  .img-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* LIGHTBOX OVERLAY */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(17, 17, 14, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+  object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  color: #fff;
+  font-size: 32px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+/* MAKE CLICKABLE IMAGES SHOW POINTER */
+.zoomable {
+  cursor: zoom-in;
+}
+</style>
 </head>
+
+<!-- LIGHTBOX MARKUP -->
+<div id="lightbox" class="lightbox-modal">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged view">
+</div>
+
 <body>
 
-  <!-- Navigation -->
-  <nav class="case-nav">
-    <a href="index.html" class="back-link">← Back to Overview</a>
-    <span class="nav-case-id">CASE 03 / BUSINESS STRATEGY & IDENTITY</span>
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-back" href="index.html">← Home</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-current">Portfolios & Enterprise Abstraction</span>
   </nav>
 
-  <main class="case-detail-container">
-  
-  <!-- HERO HEADER -->
-  <header class="case-detail-header">
-    <div class="case-header-meta">
-      <span class="case-category">03 / Business Strategy & Identity</span>
-      <span class="badge-impact">Complete</span>
+  <!-- HERO -->
+  <div class="case-hero">
+    <div class="case-eyebrow">
+      <span>03 / BUSINESS STRATEGY & IDENTITY</span>
+      <span class="badge">DELIVERED</span>
     </div>
-    <h1>Strategic Architecture Reversal: Native IdP Protection</h1>
-    <p class="case-lead">
-      Gathered qualitative customer evidence and quantified ARR risk models to reverse an executive proposal to decommission the built-in Identity Provider (IdP)—protecting a core enterprise platform differentiator.
+    <h1 class="case-title">Strategic Architecture Reversal</h1>
+    <p class="case-problem-statement">
+      Native Authentication Experience Protection
     </p>
 
-    <!-- META GRID -->
-    <div class="case-meta-grid">
-      <div class="meta-item">
-        <span class="meta-label">Role & Leadership</span>
-        <span class="meta-value">Lead UX Designer (DRI)</span>
+    <!-- TL;DR -->
+    <div class="tldr">
+      <div class="tldr-label">User Problem</div>
+      <div class="tldr-val">Architecture proposal oversight the product impacts on a decision to optimize cost and efficiency in the Identity area</div>
+      <div class="tldr-label">How I Led</div>
+      <div class="tldr-val">Gathered evidence and information on the real impact of the proposal, both concerning the product positioning, and the affected customers and potential ARR at risk.</div>
+      <div class="tldr-label tldr-last">Business Outcome</div>
+      <div class="tldr-val tldr-last">The decision was reverted, preventing potential negative impacts on customers and ARR, in favor of keeping the ideal experience for the custoemrs.</div>
+    </div>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <div class="meta-label">My Role</div>
+        <div class="meta-val">Lead UX · DRI · Identity SME</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Core Alignment</span>
-        <span class="meta-value">Executive Board, CISO & Enterprise Sales</span>
+      <div class="meta-cell">
+        <div class="meta-label">Stakeholders</div>
+        <div class="meta-val">Director Architect · Principal Architect</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Domain</span>
-        <span class="meta-value">Enterprise Identity & Risk Analysis</span>
+      <div class="meta-cell">
+        <div class="meta-label">Timeline</div>
+        <div class="meta-val">~1 week</div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Business Outcome</span>
-        <span class="meta-value">Multi-Million ARR Churn Prevented</span>
+      <div class="meta-cell">
+        <div class="meta-label">Outcome</div>
+        <div class="meta-val">Reverted decision with direct impact in customers experience and ARR.</div>
       </div>
     </div>
-  </header>
 
-  <!-- SECTION 1 -->
-  <section class="case-section">
-    <h2>01. The Executive Proposal: IdP Decommissioning Risk</h2>
-    <p>
-      In an effort to trim engineering maintenance overhead, executive leadership proposed deprecating the platform’s native built-in Identity Provider (IdP) in favor of strictly requiring third-party enterprise providers (Okta, Azure AD, Ping).
-    </p>
-    <p>
-      While logically sound on paper, this proposal ignored critical customer deployment topologies. Hundreds of high-value enterprise accounts relied on the native IdP for isolated, air-gapped, or hybrid-cloud environments where third-party SAML/OIDC federations were prohibited or technically unavailable.
-    </p>
-  </section>
-
-  <!-- SECTION 2: TRADE-OFF -->
-  <section class="case-section">
-    <div class="tradeoff-box">
-      <div class="tradeoff-title">
-        <span>⚡</span>
-        <h3>Critical Architectural Trade-off: IdP Maintenance Overhead vs. Enterprise Churn Risk</h3>
+    <!-- STAT CARDS -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num">€10M+</div>
+        <div class="stat-desc">Combined ARR of impacted customers</div>
       </div>
-      <p>
-        <strong>Advocated for accepting short-term native IdP maintenance overhead to prevent massive long-term enterprise customer churn.</strong>
-      </p>
-      <p class="tradeoff-detail">
-        <em>The Tension:</em> Decommissioning native identity would save ~15% in platform engineering maintenance, but would force top-tier enterprise clients into expensive architecture rewrites or platform migration.
-        <br><br>
-        <em>The Resolution:</em> As Lead UX DRI, I spearheaded a multi-departmental audit combining customer interview evidence with precise ARR exposure calculations, presenting an unassailable financial case to the Executive Board.
-      </p>
-    </div>
-  </section>
-
-  <!-- SECTION 3: VISUAL DAG -->
-  <section class="case-section">
-    <h2>02. Data-Driven Executive Alignment Flow</h2>
-    <p>
-      Reversing executive-level momentum required systematic quantification of user sentiment, technical dependencies, and revenue risk:
-    </p>
-
-    <div class="visual-frame">
-      <div class="frame-bar">
-        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <span class="frame-title">ARR RISK MODEL // IDP DEPRECATION FLOW</span>
+      <div class="stat-card">
+        <div class="stat-num">SMT</div>
+        <div class="stat-desc">Architecture influence</div>
       </div>
-      <div class="dag-container">
-        <div class="dag-step active">
-          <span>01. Audit Enterprise Accounts & Identity Topologies</span>
-          <span class="status-pill success">COMPLETED</span>
-        </div>
-        <div class="dag-step active">
-          <span>02. Quantify Churn Exposure & ARR Risk Model</span>
-          <span class="status-pill success">ARR AT RISK</span>
-        </div>
-        <div class="dag-step active">
-          <span>03. Executive Board Presentation & Strategic Alignment</span>
-          <span class="status-pill success">REVERSED</span>
-        </div>
-        <div class="dag-step active">
-          <span>04. Native IdP Roadmap Continuity & Modernization</span>
-          <span class="status-pill success">PROTECTED</span>
-        </div>
+      <div class="stat-card">
+        <div class="stat-num">Success</div>
+        <div class="stat-desc">Reverting the impactful decision</div>
+        <!--<div class="stat-source">Full platform audit</div>-->
       </div>
     </div>
-  </section>
 
-  <!-- SECTION 4: OUTCOMES -->
-  <section class="case-section">
-    <h2>03. Impact & Strategic Outcomes</h2>
-    <div class="outcomes-grid">
-      <div class="outcome-card">
-        <h4>Multi-Million $ ARR Protected</h4>
-        <p>Prevented forecasted contract cancellations across enterprise clients relying on native identity authentication.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="case-body">
+
+    <div class="case-main">
+
+      <!-- 01 PROBLEM -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">01</span> The Problem</h2>
+        <p class="prose">
+          OutSystems has a comprehensive and complex identity and authentication system, required to provide customers with flexible and customisation options, without compromising security. The Identity system which is a core part of the platform. A proposal was made to optimize the cost and efficiency of the Identity area, but it overlooked the product impacts on the user and customer experience.
+        </p>
+        <div class="highlight">
+          <strong>The core pain:</strong> Moving the Identity and Authentication system would result in a cheaper architecture to maintain, but it would also break the native experience for customers, and potentially impact the ARR of the company. The decision was made without a full understanding of the product and customer impacts.
+        </div>
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" src="img/case_03_01.png">
+        </div>
+        <p class="img-caption"><a href="https://www.outsystems.com/initiatives/digital-experiences#exceptional-ux" target="_blank">Exceptional UX</a> is one of the OutSystems advantages</p>
       </div>
-      <div class="outcome-card">
-        <h4>Board Proposal Reversed</h4>
-        <p>Successfully shifted executive strategy from full deprecation to modular maintenance and streamlined identity management.</p>
+
+      <!-- 02 CONSTRAINTS -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">02</span> Constraints & Context</h2>
+        <p class="prose">
+          While acting as the SME and DRI for Identity, when I became aware of the impacts, I took the initative to immediately gather context and evidence to present to the Director Architect and Principal Architect. I gathered information on the real impact of the proposal, both concerning the product positioning, and the affected customers and potential ARR at risk, based on internal data.
+
+          While operating under tight time constraints, as the decision was already in progress, I had to quickly gather evidence and convey it to the decision makers. This was a critical moment, as the decision could have had a significant negative impact on customers and the company's revenue, and at the same time negatively impact the user experience.
+
+          
+        </p>
+        <div class="img-placeholder short">
+          <img class="img-placeholder-img" style="width:50%" src="img/case_03_02.png">
+        </div>
+        <p class="img-caption">Different concept live at different abstraction levels</p>
+        <p class="prose">
+          The critical constraint: This was an architectural decision, meaning that UX was not the only factor in the decision-making process. The decision makers had to consider other factors, such as cost, efficiency, and technical feasibility. Therefore, I had to present my findings in a way that would resonate with the decision makers and highlight the importance of maintaining the native experience for customers.
+        </p>
       </div>
-      <div class="outcome-card">
-        <h4>User-Centered Strategy Influence</h4>
-        <p>Established UX research & risk quantification as a mandatory checkpoint for major architectural sunset decisions.</p>
+
+      <!-- 03 MODEL -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">03</span> The approach</h2>
+        <p class="prose">
+          Operating under tight time constraints, the approach was to gather evidence for a short and impactful message. The goal was to present both the impact in ARR, and the in the experience, so that target audience could see both sides of the impact.
+        </p>
+
+        <div class="hierarchy">
+          <div class="hierarchy-label">Evidence selection approach</div>
+
+          <div class="h-row">
+            <div class="h-node">Executive summary</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">ARR impact & customers</div>
+            <span class="h-arrow">→</span>
+            <div class="h-node">Experience impact & other platforms</div>
+          </div>
+
+        </div>
+
+        <p class="prose">
+          As we were operating in different timezones, the evidence was conveyed asynchronously, with a clear and concise message, at the same time to all decision makers. The goal was to make it easy for the decision makers to understand the impact and make an informed decision, without the hurdle of further meetings.
+        </p>
+
+        <!--<div class="highlight">
+          <strong>End-to-end product analysis:</strong> Knowing the conceptual model wasn't enough; I had to map its UX impact across the entire product. I audited every flow, navigation entry, and instance to identify imapcts of the conceptual change, to reclassify them under the new hierarchy. This meant holding both the conceptual logic and full product surface in mind at once—determining <em>what</em> changed, <em>where</em> it changed, <em>how</em> it changed, and <em>in what order</em> to preserve a coherent experience for existing users.
+        </div>-->
+        <div class="img-placeholder medium">
+          <img class="img-placeholder-img" src="img/case_03_03.png">
+        </div>
+        <p class="img-caption">Slide deck delivered to architecture SMT</p>
       </div>
+
+      
+      <!-- 06 OUTCOME -->
+      <div class="block">
+        <h2 class="block-heading"><span class="block-num">06</span> Outcome</h2>
+        <p class="prose">
+          Praised by the principal architect for bringing his awareness to the problem, and making him aware of the potential negative impacts on customers and ARR, the decision was reverted, preventing potential negative impacts on customers and ARR, in favor of keeping the ideal experience for the customers.
+        </p>
+        <!--<div class="img-placeholder medium">
+          <img class="img-placeholder-img" src="img/case_01_06.png">
+        </div>
+        <p class="img-caption">Representative deliverables — Design direction and brainstorming, conceptual model, and portfolio selector pattern</p>-->
+
+        <h3 style="font-size:16px;font-weight:700;letter-spacing:-.02em;margin:32px 0 0;">What was delivered</h3>
+        <div class="delivered-grid">
+          <div class="delivered-card">
+            <div class="delivered-num">01</div>
+            <div class="delivered-title">Evidence on ARR impact</div>
+            <div class="delivered-desc">Based on internal data, I've shown the potential negative impacts on ARR</div>
+          </div>
+          <div class="delivered-card">
+            <div class="delivered-num">02</div>
+            <div class="delivered-title">Market analysis</div>
+            <div class="delivered-desc">A high level overview of the market conditions and competitive landscape</div>
+          </div>
+          <div class="delivered-card">
+            <div class="delivered-num">03</div>
+            <div class="delivered-title">Data on usage of customization features</div>
+            <div class="delivered-desc">Numbers on the usage of customization features in the login screen</div>
+          </div>
+          <div class="delivered-card">
+            <div class="delivered-num">04</div>
+            <div class="delivered-title">UX Recommendations</div>
+            <div class="delivered-desc">Explanation on the negative impacts on the user experience</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </section>
 
-  <!-- FOOTER NAVIGATION -->
-  <footer class="case-footer-nav">
-    <a class="nav-previous" href="case_02.html">
-      <span class="nav-label">← Previous Case</span>
-      <span class="nav-title">02 / Governance for Public Elements</span>
+    <!-- SIDEBAR -->
+    <div class="case-sidebar">
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Skills demonstrated</div>
+        <span class="sidebar-tag">Systems thinking</span>
+        <span class="sidebar-tag">Conceptual Design</span>
+        <span class="sidebar-tag">Information Architecture</span>
+        <span class="sidebar-tag">Platform Navigation</span>
+        <span class="sidebar-tag">Executive Alignment</span>
+        <span class="sidebar-tag">User Research</span>
+        <span class="sidebar-tag">Cross-functional DRI</span>
+        <span class="sidebar-tag">Stakeholder Negotiation</span>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">What this case proves</div>
+        <ul class="sidebar-list">
+          <li>Full-product surface awareness — ability to trace a structural change across every screen, pattern, and navigation entry simultaneously</li>
+          <li>Conceptual-to-UX translation — understanding not just the model, but its precise impact on each touchpoint</li>
+          <li>Research-driven willingness to discard a technically correct solution when it fails users</li>
+          <li>Sustained cross-functional ownership across months of negotiation</li>
+          <li>Scope judgement — knowing when to deprioritise hi-fi in favour of higher-impact work</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Collaborators</div>
+        <ul class="sidebar-list">
+          <li>Director of Product Management</li>
+          <li>Principal Architect</li>
+          <li>Engineering managers (navigation & platform)</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SOURCES -->
+   <!--
+  <div class="sources">
+    <div class="sources-label">Sources & Proof</div>
+    <ul class="sources-list">
+      <li><span>01</span>Miro - Brainstorm board <em>(internal)</em></li>
+      <li><span>02</span>Figma file — Portfolio IA & navigation redesign <em>(internal)</em></li>
+      <li><span>03</span>User research sessions — navigation validation <em>(internal)</em></li>
+    </ul>
+  </div>
+-->
+
+</div>
+
+<!-- CASE NAV -->
+  <div class="case-nav">
+    <a class="case-nav-cell" href="case_02.html">
+      <span class="case-nav-dir">← Case 02</span>
+      <span class="case-nav-title">Agent Experience (AX) & Agentic Lifecycle Management (ALM)</span>
     </a>
-    <a class="nav-next" href="case_04.html">
-      <span class="nav-label">Next Case ↗</span>
-      <span class="nav-title">04 / Co-Pioneering Agent Experience (AX)</span>
-    </a>
-  </footer>
 
-</main>
+    <a class="case-nav-cell next" href="case_04.html">
+      <span class="case-nav-dir">Case 04 →</span>
+      <span class="case-nav-title">Governance for Public Elements</span>
+    </a>    
+  </div>
+
+  <script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  // Open modal on image click
+  document.querySelectorAll('.img-placeholder-img').forEach(img => {
+    img.classList.add('zoomable');
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  // Close modal on click anywhere (background or close button) or pressing ESC
+  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
 
 </body>
+
 </html>
