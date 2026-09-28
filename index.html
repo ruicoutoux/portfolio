@@ -724,116 +724,73 @@
     <div class="work-grid">
 
 
+      <!-- CASE 01: Portfolios -->
+      <article class="case" onclick="navigateToCase('01')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('01')" role="button" tabindex="0" style="cursor: pointer;">
+        <div class="case-info">
+          <div>
+            <div class="case-header-meta">
+              <span class="case-category">01 / Enterprise IA & Platform Architecture</span>
+              <span class="badge-impact">Delivered</span>
+            </div>
+            <h3>Portfolios: Restructuring How Enterprises Organise at Scale</h3>
+            <p class="case-desc">
+              OutSystems' flat app organization model was limiting large enterprises adoption. I defined a new layer, the Portfolios, which restructured the platform hierarchy, sitting between the Organization level and the Apps level. This project implied doing systems thinking across all the prouct surface, defining tenents and aligning with different teams.
+            </p>
+            <div class="tradeoff-teaser">
+              <strong>Key Trade-off</strong> Introducing a new structural hierarchy level affected existing users' mental model. Navigation redesign had to make the new model inevitable, not learned.
+            </div>
+          </div>
+          <div class="case-footer">
+            <div class="case-tags">
+              <span class="tag">Information Architecture</span>
+              <span class="tag">Systems thinking</span>
+              <span class="tag">Conceptual Modelling</span>
+              <span class="tag">Executive Alignment</span>
+              <span class="tag">Adopted by largest ODC customer</span>
+            </div>
+          </div>
+        </div>
 
-     <!-- CASE 01: Portfolios -->
-<article class="case" onclick="navigateToCase('01')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('01')" role="button" tabindex="0" style="cursor: pointer;">
-  <div class="case-info">
-    <div>
-      <div class="case-header-meta">
-        <span class="case-category">01 / Enterprise IA & Platform Architecture</span>
-        <span class="badge-impact">Delivered</span>
-      </div>
-      <h3>Portfolios: Restructuring How Enterprises Organise at Scale</h3>
-      <p class="case-desc">
-        OutSystems' flat org-app model couldn't support how large enterprises actually work. I defined a new intermediary layer — Portfolios — restructuring the platform hierarchy from Organization → Apps to Organization → Portfolio → Stages → Apps. This required remodelling the core navigation, since some concepts (apps, pipelines) now lived inside portfolios while others (users, settings) remained at org level.
-      </p>
-      <div class="tradeoff-teaser">
-        <strong>Key Trade-off:</strong> Introducing structural hierarchy mid-platform risked breaking existing mental models for all users — the navigation redesign had to make the new model feel inevitable, not learned.
-      </div>
-    </div>
-    <div class="case-footer">
-      <div class="case-tags">
-        <span class="tag">Information Architecture</span>
-        <span class="tag">Systems thinking</span>
-        <span class="tag">Conceptual Modelling</span>
-        <span class="tag">Executive Alignment</span>
-        <span class="tag">Adopted by largest ODC customer</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="visual">
-    <div class="visual-frame">
-      <div class="frame-bar">
-        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <span class="frame-title">ENTERPRISE ABSTRACTION // PORTFOLIO LAYER</span>
-      </div>
-      <div class="dag-container">
-        <div class="dag-step active">
-          <span>01. Flat Application Mapping</span>
-          <span class="status-pill success">AUDITED</span>
+        <div class="visual">  
+          <div class="visual-frame">
+            <img src="img/portfolios.png" alt="Portfolios Visual">
+          </div>
         </div>
-        <div class="dag-step active">
-          <span>02. Director Workshops</span>
-          <span class="status-pill success">ALIGNED</span>
-        </div>
-        <div class="dag-step active">
-          <span>03. Portfolio Layer Spec</span>
-          <span class="status-pill success">DEFINED</span>
-        </div>
-        <div class="dag-step">
-          <span>04. High-Fidelity Design Handoff</span>
-          <span class="status-pill">IN PROGRESS</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
+      </article>
 
 
-<!-- CASE 04: AX & ALM -->
-<article class="case" onclick="navigateToCase('04')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('04')" role="button" tabindex="0" style="cursor: pointer;">
-  <div class="case-info">
-    <div>
-      <div class="case-header-meta">
-        <span class="case-category">04 / Agentic AI & AX</span>
-        <span class="badge-impact">Ongoing</span>
-      </div>
-      <h3>Co-Pioneering Agent Experience (AX) & Agentic Lifecycle Management (ALM)</h3>
-      <p class="case-desc">
-        Co-founding the AX design practice and acting as DRI for ALM—defining capability contracts, supervisory guardrails, and isolated sandbox environments for autonomous agents across a high-scale developer platform.
-      </p>
-      <div class="tradeoff-teaser">
-        <strong>Key Trade-off:</strong> Enforced explicit human-in-the-loop validation contracts over fully autonomous agent execution to guarantee system safety and trust.
-      </div>
-    </div>
-    <div class="case-footer">
-      <div class="case-tags">
-        <span class="tag">Role: Lead UX (DRI)</span>
-        <span class="tag">AX Practice Founder</span>
-        <span class="tag">Team Building</span>
-        <span class="tag">AI Governance</span>
-      </div>
-    </div>
-  </div>
+      <!-- CASE 02: ALM & AX -->
+      <article class="case" onclick="navigateToCase('04')" onkeydown="if(event.key==='Enter'||event.key===' ') navigateToCase('04')" role="button" tabindex="0" style="cursor: pointer;">
+        <div class="case-info">
+          <div>
+            <div class="case-header-meta">
+              <span class="case-category">02 / Agentic AI & Agentic Experience</span>
+              <span class="badge-impact">Ongoing</span>
+            </div>
+            <h3>Agent Experience (AX) & Agentic Lifecycle Management (ALM)</h3>
+            <p class="case-desc">
+              DRI and leading the design for ALM in the OutSystems platform, defining end-to-end agentic lifecycle flows, governance, and human-in-the-loop oversight for autonomous agents across a high-scale developer platform. Co-pioneering the Agent Experience (AX) design practice, defining the patterns and principles for agentic interactions across the platform.
+            </p>
+            <div class="tradeoff-teaser">
+              <strong>Key Trade-off</strong> Balaced the vision of a full agentic platform with the needs of the current users for manual control and interaction, while also defining the governance and oversight patterns for safe agentic execution.
+            </div>
+          </div>
+          <div class="case-footer">
+            <div class="case-tags">
+              <span class="tag">Role: Lead UX (DRI)</span>
+              <span class="tag">AX Practice Founder</span>
+              <span class="tag">Agentic experience</span>
+              <span class="tag">Application Lifecycle Management</span>
+            </div>
+          </div>
+        </div>
 
-  <div class="visual">
-    <div class="visual-frame">
-      <div class="frame-bar">
-        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <span class="frame-title">AGENTIC EXECUTION DAG // OVERSIGHT</span>
-      </div>
-      <div class="dag-container">
-        <div class="dag-step active">
-          <span>01. Parse Agent Contract</span>
-          <span class="status-pill success">VALIDATED</span>
+        <div class="visual">  
+          <div class="visual-frame">
+            <img src="img/portfolios.png" alt="Portfolios Visual">
+          </div>
         </div>
-        <div class="dag-step active">
-          <span>02. Isolated Sandbox Dry-Run</span>
-          <span class="status-pill success">NO VIOLATIONS</span>
-        </div>
-        <div class="dag-step">
-          <span>03. Capability Guardrail Check</span>
-          <span class="status-pill">AWAITING HITL</span>
-        </div>
-        <div class="dag-step pending">
-          <span>04. Production Deployment</span>
-          <span class="status-pill">PENDING</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
+      </article>
 
 
 <!-- CASE 03: Strategic IdP Reversal -->
@@ -842,19 +799,18 @@
     <div>
       <div class="case-header-meta">
         <span class="case-category">03 / Business Strategy & Identity</span>
-        <span class="badge-impact">Complete</span>
+        <span class="badge-impact">Delivered</span>
       </div>
-      <h3>Strategic Architecture Reversal: Native IdP Protection</h3>
+      <h3>Strategic Architecture Reversal: Native Authentication Experience Protection</h3>
       <p class="case-desc">
-        Gathered customer evidence and quantified ARR risk to reverse an executive proposal to decommission the built-in Identity Provider, protecting a core platform differentiator.
+        Upon architectural proposal to change the native authentication experience, gathered customer evidence and quantified ARR risk to reverse an executive proposal to decommission the built-in Identity Provider, and consequently a native, fully customizable authentication expeirence in OutSystems applications, protecting a core platform differentiator.
       </p>
       <div class="tradeoff-teaser">
-        <strong>Key Trade-off:</strong> Advocated for short-term maintenance overhead of the native IdP over third-party deprecation to prevent long-term enterprise customer churn.
+        <strong>Key Trade-off</strong> Advocated for maintenance overhead of the native IdP over third-party deprecation, to prevent long-term enterprise customer churn.
       </div>
     </div>
     <div class="case-footer">
       <div class="case-tags">
-        <span class="tag">Role: Lead UX (DRI)</span>
         <span class="tag">Executive Influence</span>
         <span class="tag">ARR Risk Analysis</span>
         <span class="tag">Enterprise Identity</span>
@@ -862,32 +818,11 @@
     </div>
   </div>
 
-  <div class="visual">
-    <div class="visual-frame">
-      <div class="frame-bar">
-        <div class="frame-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <span class="frame-title">ARR RISK MODEL // IDP DEPRECATION</span>
-      </div>
-      <div class="dag-container">
-        <div class="dag-step active">
-          <span>01. Audit Enterprise Accounts</span>
-          <span class="status-pill success">COMPLETED</span>
+  <div class="visual">  
+          <div class="visual-frame">
+            <img src="img/portfolios.png" alt="Portfolios Visual">
+          </div>
         </div>
-        <div class="dag-step active">
-          <span>02. Quantify Churn Exposure</span>
-          <span class="status-pill success">ARR AT RISK</span>
-        </div>
-        <div class="dag-step active">
-          <span>03. Executive Board Alignment</span>
-          <span class="status-pill success">REVERSED</span>
-        </div>
-        <div class="dag-step">
-          <span>04. Native IdP Roadmap Continuity</span>
-          <span class="status-pill success">PROTECTED</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </article>
 
 
